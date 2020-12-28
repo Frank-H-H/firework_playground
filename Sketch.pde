@@ -92,6 +92,9 @@ class ClientHandler implements Runnable {
         if(whatClientSaid.contains("Volcano")) {
           addVolcano();
         }
+        if(whatClientSaid.contains("Rocket")) {
+          addRocket();
+        }
         client.write(HTTP_HEADER);
         client.write("<html><head><title>Processing talkin'</title></head><body><h3>Your base are belong to us!");
     client.write("</h3></body></html>");
@@ -113,6 +116,15 @@ void addVolcano() {
   this.fireworks.add(new Volcano());
 }
 
+void addRocket() {
+  this.fireworks.add(new Rocket());
+}
+
 void keyPressed() {
-  this.fireworks.add(new Volcano());
+  if (key == 'v') {
+    addVolcano();
+  }
+  if (key == 'r') {
+    addRocket();
+  }
 }

@@ -1,4 +1,3 @@
-
 class Volcano implements Firework {
   PVector location;
   float particleColor;
