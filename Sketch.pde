@@ -86,8 +86,10 @@ class ClientHandler implements Runnable {
     while(!finished) {
       String whatClientSaid = client.readString();
       if (whatClientSaid != null) {
-        println(client.ip() + "t" + whatClientSaid);
-        addVolcano();
+        println(client.ip() + ": " + whatClientSaid);
+        if(whatClientSaid.contains("Volcano")) {
+          addVolcano();
+        }
         client.write(HTTP_HEADER);
         client.write("<html><head><title>Processing talkin'</title></head><body><h3>Your base are belong to us!");
     client.write("</h3></body></html>");
@@ -102,11 +104,7 @@ class ClientHandler implements Runnable {
 // to an existing server.
 void serverEvent(Server someServer, Client someClient) {
   println("We have a new client: " + someClient.ip());
-      new Thread(new ClientHandler(someClient)).start();
-  String whatClientSaid = someClient.readString();
-  if (whatClientSaid != null) {
-    println(someClient.ip() + "t" + whatClientSaid);
-  }
+  new Thread(new ClientHandler(someClient)).start();
 }
 
 void addVolcano() {
