@@ -11,14 +11,16 @@ ArrayList<Firework> fireworks;
 
 Server httpServer;
 
-PVector gravity = new PVector(0, 0.2);
+PVector gravity = new PVector(0, 0, -0.1);
 
-PeasyCam cam;
+PeasyCam camera;
 
 void setup() {
   //fullScreen(P3D);
   size(800, 600, P3D);
-  //cam = new PeasyCam(this, 1500);
+  camera = new PeasyCam(this, 0, 0, 500, 1500);
+  camera.rotateX(-1.7);
+  camera.setYawRotationMode();
 
   colorMode(HSB);
   background(0);
@@ -36,18 +38,17 @@ void draw() {
   }
 
   background(0);
-  translate(width/2, height, -2000);
-  rotateY(frameCount*0.003);
+  rotateZ(frameCount*0.003);
 
   // Floor
-  stroke(255);
+  stroke(100);
   strokeWeight(1);
-  fill(51);
+  fill(20);
   beginShape();
-  vertex(-width, height/2, -800);
-  vertex(width, height/2, -800);
-  vertex(width, height/2, 800);
-  vertex(-width, height/2, 800);
+  vertex(-500, -500, 0);
+  vertex(-500, 500, 0);
+  vertex(500, 500, 0);
+  vertex(500, -500, 0);
   endShape(CLOSE);
   
   // running firework

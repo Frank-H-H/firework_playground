@@ -3,14 +3,18 @@ class Volcano implements Firework {
   PVector location;
   float particleColor;
   float remainingLifespan;
+  float particleVelocity;
+  float horizontalSpread;
   ArrayList<Particle> particles;
   
   // Beim Erzeugen eines Vulkans
   Volcano() {
-    location = new PVector(random(-width/2, width/2), height/2, random(-800, 800));
-    particleColor = random(255);
-    remainingLifespan = random(200, 400);
-    particles = new ArrayList<Particle>();
+    this.location = new PVector(random(-500, 500), random(-500,500), 0);
+    this.particleColor = random(255);
+    this.remainingLifespan = random(200, 400);
+    this.particleVelocity = random(5, 10);
+    this.horizontalSpread = random(0.4,2);
+    this.particles = new ArrayList<Particle>();
   }
   
   void doOneCycle() {
@@ -20,17 +24,24 @@ class Volcano implements Firework {
   }
   
   void update() {
-    if(remainingLifespan > 0) {
+    if(this.remainingLifespan > 0) {
       // chance to emit a particle
-      if(random(1) < 0.5) {
-        particles.add(new Particle(location.copy(), new PVector(0,-20,0), particleColor, 255));
+      if(random(1) < 1) {
+        this.particles.add(new Particle(
+          this.location.copy(),
+          new PVector(
+            random(-this.horizontalSpread,this.horizontalSpread),
+            random(-this.horizontalSpread,this.horizontalSpread),
+            random(this.particleVelocity*0.9, this.particleVelocity*1.1)),
+          this.particleColor,
+          255));
       }
     }
     // even though the lifespan of the volcano has been ended, it's particles still may be active
-    for (int i = particles.size()-1; i >= 0; i--) {
-      Particle particle = particles.get(i);
+    for (int i = this.particles.size()-1; i >= 0; i--) {
+      Particle particle = this.particles.get(i);
       if (particle.isDead()) {
-        particles.remove(i);
+        this.particles.remove(i);
       }
       particle.doOneCycle();
     }
@@ -38,19 +49,19 @@ class Volcano implements Firework {
 
   // Method to display
   void display() {
-    if(remainingLifespan <= 0) {
+    if(this.remainingLifespan <= 0) {
       return;
     }
-    fill(particleColor,255,255);
-    stroke(particleColor, 255, 255, 255);
+    fill(this.particleColor,255,255);
+    stroke(this.particleColor, 255, 255, 255);
     strokeWeight(4);
     pushMatrix();
-    translate(location.x, location.y, location.z);
+    translate(this.location.x, this.location.y, this.location.z);
     point(0, 0);
     popMatrix();
   }
   
   boolean isDead() {
-    return remainingLifespan <= 0;
+    return this.remainingLifespan <= 0;
   }
 }

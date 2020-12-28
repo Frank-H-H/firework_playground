@@ -31,7 +31,7 @@ class Particle {
     }
     fill(hue,255,255);
     stroke(hue, 255, 255, 255);
-    strokeWeight(2);
+    strokeWeight(1);
     pushMatrix();
     translate(location.x, location.y, location.z);
     point(0, 0);
