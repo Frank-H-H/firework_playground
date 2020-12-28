@@ -16,8 +16,8 @@ PVector gravity = new PVector(0, 0, -0.1);
 PeasyCam camera;
 
 void setup() {
-  //fullScreen(P3D);
-  size(800, 600, P3D);
+  fullScreen(P3D);
+  //size(800, 600, P3D);
   camera = new PeasyCam(this, 0, 0, 500, 1500);
   camera.rotateX(-1.7);
   camera.setYawRotationMode();

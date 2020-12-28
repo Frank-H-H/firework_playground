@@ -36,15 +36,15 @@ class Particle {
       return;
     }
     // glow
-    stroke(hue, 255, 255, 50);
-    strokeWeight(8);
-    point(location.x, location.y, location.z);
-    // glow
-    stroke(hue, 255, 255, 100);
+    stroke(hue, 200, 255, 50);
     strokeWeight(5);
     point(location.x, location.y, location.z);
-    stroke(hue, 100, 255, 255);
-    strokeWeight(2);
+    // glow
+    stroke(hue, 70, 255, 100);
+    strokeWeight(3);
+    point(location.x, location.y, location.z);
+    stroke(hue, 10, 255, 255);
+    strokeWeight(1);
     point(location.x, location.y, location.z);
   }
   
