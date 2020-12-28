@@ -53,10 +53,10 @@ void draw() {
   // running firework
   for (int i = fireworks.size()-1; i >= 0; i--) {
     Firework firework = fireworks.get(i);
-    firework.doOneCycle();
     if (firework.isDead()) {
       fireworks.remove(i);
     }
+    firework.doOneCycle();
   }
   println("Number of Fireworks:", fireworks.size());
 }
@@ -112,4 +112,5 @@ void addVolcano() {
 }
 
 void keyPressed() {
+  this.fireworks.add(new Volcano());
 }
