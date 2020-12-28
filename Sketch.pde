@@ -7,7 +7,7 @@ import peasy.*;
 import processing.sound.*;
 import processing.net.*;
 
-ArrayList<Volcano> volcanos;
+ArrayList<Firework> fireworks;
 
 Server httpServer;
 
@@ -27,10 +27,7 @@ void setup() {
   
   thread("checkForClients");
   
-  this.volcanos = new ArrayList<Volcano>();
-  for (int i = 0; i <= 20; i++) {
-    this.volcanos.add(new Volcano());
-  }
+  this.fireworks = new ArrayList<Firework>();
 }
 
 // zeichnen
@@ -42,11 +39,6 @@ void draw() {
   translate(width/2, height, -2000);
   rotateY(frameCount*0.003);
 
-  for (int i = volcanos.size()-1; i >= 0; i--) {
-    Volcano volcano = volcanos.get(i);
-    volcano.run();
-  }
-
   // Floor
   stroke(255);
   strokeWeight(1);
@@ -57,6 +49,16 @@ void draw() {
   vertex(width, height/2, 800);
   vertex(-width, height/2, 800);
   endShape(CLOSE);
+  
+  // running firework
+  for (int i = fireworks.size()-1; i >= 0; i--) {
+    Firework firework = fireworks.get(i);
+    firework.doOneCycle();
+    if (firework.isDead()) {
+      fireworks.remove(i);
+    }
+  }
+  println("Number of Fireworks:", fireworks.size());
 }
 
 void checkForClients() {
@@ -108,7 +110,7 @@ void serverEvent(Server someServer, Client someClient) {
 }
 
 void addVolcano() {
-  this.volcanos.add(new Volcano());
+  this.fireworks.add(new Volcano());
 }
 
 void keyPressed() {
