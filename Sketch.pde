@@ -59,7 +59,8 @@ void draw() {
     }
     firework.doOneCycle();
   }
-  println("Number of Fireworks:", fireworks.size());
+  if(frameCount % 100 == 0)
+    println("Number of Fireworks:", fireworks.size());
 }
 
 void checkForClients() {

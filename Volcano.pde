@@ -9,7 +9,7 @@ class Volcano implements Firework {
   
   // Beim Erzeugen eines Vulkans
   Volcano() {
-    this.location = new PVector(random(-500, 500), random(-500,500), 0);
+    this.location = new PVector(random(-500, 500), random(-500,500), 1);
     this.particleColor = random(255);
     this.remainingLifespan = random(200, 400);
     this.particleVelocity = random(5, 10);
@@ -52,16 +52,9 @@ class Volcano implements Firework {
     if(this.remainingLifespan <= 0) {
       return;
     }
-    fill(this.particleColor,255,255);
-    stroke(this.particleColor, 255, 255, 255);
-    strokeWeight(4);
-    pushMatrix();
-    translate(this.location.x, this.location.y, this.location.z);
-    point(0, 0);
-    popMatrix();
   }
   
   boolean isDead() {
-    return this.remainingLifespan <= 0;
+    return this.remainingLifespan <= 0 && this.particles.isEmpty();
   }
 }
