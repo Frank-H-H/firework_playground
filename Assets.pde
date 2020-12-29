@@ -6,6 +6,8 @@ class Assets {
   
   SoundFile[] startSounds;
   SoundFile[] explosionSounds;
+  String[] bombStartSounds; 
+  
   
   Assets (PApplet aParent){
     this.parent = aParent;
@@ -18,7 +20,9 @@ class Assets {
       new SoundFile(parent, "knall 2.wav"),
       new SoundFile(parent, "knall 3.wav"),
       new SoundFile(parent, "knall 4.wav")};
-    
+    bombStartSounds = new String[]{
+      "FireWorks-Single-A-www.fesliyanstudios.com.mp3",
+      "FireWorks-Single-B-www.fesliyanstudios.com.mp3"};
   }
 
   SoundFile randomRocketStartSound() {
@@ -26,7 +30,7 @@ class Assets {
   }
   
   SoundFile randomBombStartSound() {
-    return explosionSounds[0];
+    return new SoundFile(parent, bombStartSounds[int(random(bombStartSounds.length))]);
   }
 
   SoundFile randomExplosionSound() {

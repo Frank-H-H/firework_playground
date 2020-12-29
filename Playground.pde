@@ -33,4 +33,11 @@ class Playground {
     float randomX = random(minXValueAtThatDistance, maxXValueAtThatDistance);
     return new PVector(randomX, randomY, 0);
   }
+  
+  // Returns the distance of the provided location from the viewer in a factor
+  // 0 -> very near
+  // 1 -> very far
+  float distanceFactorFromViewer(PVector aLocation) {
+    return map(aLocation.y, playground.frontLeft.y, playground.backLeft.y, 0, 1);
+  }
 }
