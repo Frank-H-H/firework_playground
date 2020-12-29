@@ -38,16 +38,20 @@ class Particle {
     if(remainingLifespan <= 0) {
       return;
     }
+    
+    float distance = map(location.y, playground.frontLeft.y, playground.backLeft.y, 0, 1);
+    float distanceFactor = map(distance, 0, 1, 2, 0.1);
+    
     // glow
     stroke(hue, 200, 255, 50);
-    strokeWeight(5);
+    strokeWeight(distanceFactor * 5);
     point(location.x, location.y, location.z);
     // glow
     stroke(hue, 70, 255, 100);
-    strokeWeight(3);
+    strokeWeight(distanceFactor * 3);
     point(location.x, location.y, location.z);
     stroke(hue, 10, 255, 255);
-    strokeWeight(2);
+    strokeWeight(distanceFactor);
     point(location.x, location.y, location.z);
   }
   
