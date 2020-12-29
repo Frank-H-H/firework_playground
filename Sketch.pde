@@ -11,6 +11,8 @@ ArrayList<Firework> fireworks;
 
 Server httpServer;
 
+long lastFrameWithActivity = 0;
+
 PVector gravity = new PVector(0, 0, -0.1);
 
 Playground playground;
@@ -43,6 +45,18 @@ void setup() {
 
 // zeichnen
 void draw() {
+  if(frameCount - frameRate * 60 > lastFrameWithActivity) {
+    if(random(0,1000) <= 5 - fireworks.size()) {
+      addBomb();
+    }
+    if(random(0,1000) <= 5 - fireworks.size()) {
+      addVolcano();
+    }
+    if(random(0,1000) <= 5 - fireworks.size()) {
+      addRocket();
+    }
+  }
+  
   background(0);
 
   playground.display();
@@ -85,6 +99,7 @@ class ClientHandler implements Runnable {
       String whatClientSaid = client.readString();
       if (whatClientSaid != null) {
         println(client.ip() + ": " + whatClientSaid);
+        lastFrameWithActivity = frameCount;
         if(whatClientSaid.contains("Volcano")) {
           addVolcano();
         }
@@ -124,6 +139,7 @@ void addBomb() {
 }
 
 void keyPressed() {
+  lastFrameWithActivity = frameCount;
   if (key == 'v') {
     addVolcano();
   }
