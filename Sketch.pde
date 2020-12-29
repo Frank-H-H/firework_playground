@@ -38,7 +38,7 @@ void draw() {
   }
 
   background(0);
-  rotateZ(frameCount*0.003);
+  rotateZ(frameCount*0.005);
 
   // Floor
   stroke(100);

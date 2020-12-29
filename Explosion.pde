@@ -1,10 +1,25 @@
 class Explosion implements Firework {
   PVector location;
   float timeAfterExplosion;
+  float numberOfComets;
+  float cometColor;
+  float cometLifeSpan;
+  ArrayList<Particle> comets;
 
   Explosion(PVector aLocation) {
     this.location = aLocation;
     this.timeAfterExplosion = 0;
+    this.cometColor = random(255);
+    this.cometLifeSpan = random(20, 200);
+    numberOfComets = random(200, 700);
+    this.comets = new ArrayList<Particle>();
+    for (int i = 0; i <= numberOfComets; i++) {
+      comets.add(new Particle(
+          this.location.copy(),
+          PVector.random3D().mult(random(20, 30)),
+          this.cometColor,
+          random(cometLifeSpan * 0.5, cometLifeSpan * 1.5), random(0.1, 0.2)));
+    }
   }
 
   void doOneCycle() {
@@ -14,6 +29,13 @@ class Explosion implements Firework {
   }
 
   void update() {
+    for (int i = this.comets.size()-1; i >= 0; i--) {
+      Particle comet = this.comets.get(i);
+      if (comet.isDead()) {
+        this.comets.remove(i);
+      }
+      comet.doOneCycle();
+    }
   }
 
   // Method to display
@@ -29,15 +51,9 @@ class Explosion implements Firework {
         }
       }
     }
-    
-    
-    
-//    stroke(60, 0, 255, 255 / (this.timeAfterExplosion * this.timeAfterExplosion * 0.05 + 1));
-//    strokeWeight(150);
-//    point(location.x, location.y, location.z);
   }
 
   boolean isDead() {
-    return this.timeAfterExplosion >= 100;
+    return this.comets.isEmpty();
   }
 }
