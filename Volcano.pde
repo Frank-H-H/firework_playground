@@ -7,7 +7,6 @@ class Volcano implements Firework {
   float particleLifespan;
   ArrayList<Particle> particles;
   
-  // Beim Erzeugen eines Vulkans
   Volcano() {
     this.location = new PVector(random(-500, 500), random(-500,500), 0.1);
     this.particleColor = random(255);

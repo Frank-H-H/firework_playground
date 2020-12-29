@@ -5,9 +5,8 @@ class Rocket implements Firework {
   float thrust;
   float remainingPropellant;
   float remainingTimeUntilExplosion;
-  boolean exploded;
+  Explosion explosion;
 
-  // Beim Erzeugen eines Vulkans
   Rocket() {
     this.location = new PVector(random(-500, 500), random(-500, 500), 0.1);
     this.velocity = new PVector(0, 0, 0);
@@ -18,21 +17,25 @@ class Rocket implements Firework {
   }
 
   void doOneCycle() {
-    update();
-    display();
-    remainingPropellant--;
-    remainingTimeUntilExplosion--;
+    this.update();
+    this.display();
+    this.remainingPropellant--;
+    this.remainingTimeUntilExplosion--;
   }
 
   void update() {
-    if(remainingTimeUntilExplosion <= 0) {
-      explode();
+    if(this.remainingTimeUntilExplosion <= 0 && explosion == null) {
+      this.explode();
     }
-    if(remainingPropellant > 0) {
-      velocity.add(new PVector(0, 0, thrust));
+    if(this.explosion != null) {
+      this.explosion.doOneCycle();
+    } else {
+      if(this.remainingPropellant > 0) {
+        this.velocity.add(new PVector(0, 0, thrust));
+      }
+      this.velocity.add(gravity);
+      this.location.add(this.velocity);
     }
-    velocity.add(gravity);
-    location.add(velocity);
   }
 
   // Method to display
@@ -43,10 +46,10 @@ class Rocket implements Firework {
   }
   
   void explode() {
-    this.exploded  = true;
+    this.explosion = new Explosion(location);
   }
 
   boolean isDead() {
-    return exploded;
+    return this.explosion != null && explosion.isDead();
   }
 }
