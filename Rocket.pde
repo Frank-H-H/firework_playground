@@ -51,7 +51,6 @@ class Rocket implements Firework {
       this.velocity.add(gravity);
       this.location.add(this.velocity);
     }
-    // even though the lifespan of the volcano has been ended, it's particles still may be active
     for (int i = this.thrustParticles.size()-1; i >= 0; i--) {
       Particle particle = this.thrustParticles.get(i);
       if (particle.isDead()) {
@@ -82,7 +81,6 @@ class Rocket implements Firework {
       this.thrustColor,
       random(thrustParticleLifespan * 0.8, thrustParticleLifespan * 1.2), random(thrustParticleAirResistance*0.9, thrustParticleAirResistance*1.1)));
   }
-
 
   boolean isDead() {
     return this.explosion != null && explosion.isDead() && this.thrustParticles.isEmpty();
