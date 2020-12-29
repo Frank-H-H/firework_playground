@@ -20,7 +20,10 @@ class Explosion implements Firework {
           this.cometColor,
           random(cometLifeSpan * 0.5, cometLifeSpan * 1.5), random(0.1, 0.2)));
     }
-    assets.randomExplosionSound().play();
+    float distanceFactor = playground.distanceFactorFromViewer(this.location);
+    SoundFile startSound = assets.randomExplosionSound();
+    startSound.amp(map(distanceFactor,0,1,1,0.05));
+    startSound.play();
   }
 
   void doOneCycle() {
