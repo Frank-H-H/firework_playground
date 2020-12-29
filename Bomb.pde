@@ -4,8 +4,8 @@ class Bomb implements Firework {
   float particleColor;
   Explosion explosion;
 
-  Bomb() {
-    this.location = new PVector(random(-500, 500), random(-500, 500), 0.1);
+  Bomb(PVector aLocation) {
+    this.location = new PVector(aLocation.x, aLocation.y, 0.1);
     this.velocity = new PVector(0, 0, random(14,16));
     this.particleColor = random(255);
   }

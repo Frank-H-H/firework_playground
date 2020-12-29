@@ -8,8 +8,8 @@ class Volcano implements Firework {
   float particleAirResistance;
   ArrayList<Particle> particles;
   
-  Volcano() {
-    this.location = new PVector(random(-500, 500), random(-500,500), 0.1);
+  Volcano(PVector aLocation) {
+    this.location = new PVector(aLocation.x, aLocation.y, 0.1);
     this.particleColor = random(255);
     this.remainingLifespan = random(200, 400);
     this.particleVelocity = random(10, 15);

@@ -13,17 +13,20 @@ Server httpServer;
 
 PVector gravity = new PVector(0, 0, -0.1);
 
+Playground playground;
+
 PeasyCam camera;
 
 void setup() {
   fullScreen(P3D);
   //size(800, 600, P3D);
-  camera = new PeasyCam(this, 0, 0, 500, 1500);
-  camera.rotateX(-1.7);
-  camera.setYawRotationMode();
+  camera = new PeasyCam(this, 0, 1500, 200, 700);
+  camera.rotateX(-1.79);
+  camera.setPitchRotationMode();
 
   colorMode(HSB);
-  background(0);
+  
+  playground = new Playground();
   
   httpServer = new Server(this, 8080);
   
@@ -34,22 +37,9 @@ void setup() {
 
 // zeichnen
 void draw() {
-  if (random(1) < 0.01) {
-  }
-
   background(0);
-  rotateZ(frameCount*0.005);
 
-  // Floor
-  stroke(100);
-  strokeWeight(1);
-  fill(20);
-  beginShape();
-  vertex(-500, -500, 0);
-  vertex(-500, 500, 0);
-  vertex(500, 500, 0);
-  vertex(500, -500, 0);
-  endShape(CLOSE);
+  playground.display();
   
   // running firework
   for (int i = fireworks.size()-1; i >= 0; i--) {
@@ -116,15 +106,15 @@ void serverEvent(Server someServer, Client someClient) {
 }
 
 void addVolcano() {
-  this.fireworks.add(new Volcano());
+  this.fireworks.add(new Volcano(playground.randomPointOnPlayground()));
 }
 
 void addRocket() {
-  this.fireworks.add(new Rocket());
+  this.fireworks.add(new Rocket(playground.randomPointOnPlayground()));
 }
 
 void addBomb() {
-  this.fireworks.add(new Bomb());
+  this.fireworks.add(new Bomb(playground.randomPointOnPlayground()));
 }
 
 void keyPressed() {

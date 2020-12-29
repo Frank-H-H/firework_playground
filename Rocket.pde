@@ -7,8 +7,8 @@ class Rocket implements Firework {
   float remainingTimeUntilExplosion;
   Explosion explosion;
 
-  Rocket() {
-    this.location = new PVector(random(-500, 500), random(-500, 500), 0.1);
+  Rocket(PVector aLocation) {
+    this.location = new PVector(aLocation.x, aLocation.y, 0.1);
     this.velocity = new PVector(0, 0, 0);
     this.particleColor = random(255);
     this.thrust = random(0.23, 0.27);
