@@ -17,7 +17,13 @@ Playground playground;
 
 PeasyCam camera;
 
+Sound sound;
+Assets assets;
+
 void setup() {
+  sound = new Sound(this);
+  assets = new Assets(this);
+
   fullScreen(P3D);
   //size(800, 600, P3D);
   camera = new PeasyCam(this, 0, 1500, 200, 700);

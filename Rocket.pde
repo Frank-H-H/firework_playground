@@ -14,6 +14,7 @@ class Rocket implements Firework {
     this.thrust = random(0.23, 0.27);
     this.remainingPropellant = random(120, 140);
     this.remainingTimeUntilExplosion = random(80, 100);
+    assets.randomRocketStartSound().play();
   }
 
   void doOneCycle() {

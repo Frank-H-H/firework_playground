@@ -20,6 +20,7 @@ class Explosion implements Firework {
           this.cometColor,
           random(cometLifeSpan * 0.5, cometLifeSpan * 1.5), random(0.1, 0.2)));
     }
+    assets.randomExplosionSound().play();
   }
 
   void doOneCycle() {

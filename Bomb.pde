@@ -8,6 +8,7 @@ class Bomb implements Firework {
     this.location = new PVector(aLocation.x, aLocation.y, 0.1);
     this.velocity = new PVector(0, 0, random(14,16));
     this.particleColor = random(255);
+    assets.randomBombStartSound().play();
   }
 
   void doOneCycle() {
