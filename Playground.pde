@@ -22,19 +22,15 @@ class Playground {
     endShape(CLOSE);
   }
   
+  // The playground is not a rectangle. First, a random distance is chosen. Depending on
+  // that distance from the near plane (given by the both front points), an x coordinate is
+  // randomly selected
   PVector randomPointOnPlayground() {
-    PVector randomPoint;
-    do {
-      randomPoint = new PVector(
-        random(min(frontLeft.x, frontRight.x),max(frontLeft.x, frontRight.x)),
-        random(min(frontLeft.y, backLeft.y),max(frontLeft.y, backLeft.y)),
-        0);
-    } while (!contains(randomPoint));
-    return randomPoint;
+    float randomY = random(min(frontLeft.y, backLeft.y), max(frontLeft.y, backLeft.y));
+    float distanceFromViewer = map(randomY, frontLeft.y, backLeft.y, 0, 1);
+    float minXValueAtThatDistance = map(distanceFromViewer, 0, 1, frontLeft.x, backLeft.x);
+    float maxXValueAtThatDistance = map(distanceFromViewer, 0, 1, frontRight.x, backRight.x);
+    float randomX = random(minXValueAtThatDistance, maxXValueAtThatDistance);
+    return new PVector(randomX, randomY, 0);
   }
-  
-  boolean contains(PVector aVector) {
-    return true;
-  }
-
 }
