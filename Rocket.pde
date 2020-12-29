@@ -12,9 +12,12 @@ class Rocket implements Firework {
     this.velocity = new PVector(0, 0, 0);
     this.particleColor = random(255);
     this.thrust = random(0.23, 0.27);
-    this.remainingPropellant = random(120, 140);
-    this.remainingTimeUntilExplosion = random(80, 100);
-    assets.randomRocketStartSound().play();
+    this.remainingPropellant = random(100, 120);
+    this.remainingTimeUntilExplosion = random(100, 120);
+    float distanceFactor = playground.distanceFactorFromViewer(this.location);
+    SoundFile startSound = assets.randomRocketStartSound();
+    startSound.amp(map(distanceFactor,0,1,0.6,0.02));
+    startSound.play();
   }
 
   void doOneCycle() {
