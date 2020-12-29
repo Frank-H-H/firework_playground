@@ -6,17 +6,23 @@ class Volcano implements Firework {
   float horizontalSpread;
   float particleLifespan;
   float particleAirResistance;
+  float distanceFromViewer;
+  SoundFile sound;
   ArrayList<Particle> particles;
   
   Volcano(PVector aLocation) {
     this.location = new PVector(aLocation.x, aLocation.y, 0.1);
     this.particleColor = random(255);
-    this.remainingLifespan = random(200, 400);
+    this.remainingLifespan = random(600, 800);
     this.particleVelocity = random(10, 15);
     this.horizontalSpread = random(0.5,2);
     this.particleLifespan = random(100, 140);
     this.particleAirResistance = random(0.02, 0.08);
     this.particles = new ArrayList<Particle>();
+    distanceFromViewer = playground.distanceFactorFromViewer(this.location);
+    sound = assets.randomVolcanoSound();
+    sound.amp(map(distanceFromViewer,0,1,0.6,0.02));
+    sound.play();
   }
   
   void doOneCycle() {
@@ -38,6 +44,14 @@ class Volcano implements Firework {
         this.particles.remove(i);
       }
       particle.doOneCycle();
+    }
+    if(this.remainingLifespan <= 10 && this.remainingLifespan >= 0) {
+      float newAmp = map(distanceFromViewer,0,1,0.6,0.02) * remainingLifespan / 10;
+      println(newAmp);
+      sound.amp(newAmp);
+    }
+    if(remainingLifespan < 0) {
+      sound.stop();
     }
   }
 
