@@ -55,7 +55,7 @@ class Bomb implements Firework {
     // render launcher
     pushMatrix();
     noStroke();
-    translate(location.x, location.y, 0);
+    translate(location.x, location.y, 10);
     fill(startParticleColor, 100, 80, 255);
     box(3, 3, 20);
     popMatrix();

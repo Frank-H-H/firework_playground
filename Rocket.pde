@@ -62,9 +62,12 @@ class Rocket implements Firework {
 
   // Method to display
   void display() {
-    stroke(60, 10, 255, 255);
-    strokeWeight(1);
-    point(location.x, location.y, location.z);
+    pushMatrix();
+    noStroke();
+    translate(location.x, location.y, location.z + 5);
+    fill(thrustColor, 100, 80, 255);
+    box(3, 3, 10);
+    popMatrix();
   }
   
   void explode() {

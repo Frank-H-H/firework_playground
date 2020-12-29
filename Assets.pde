@@ -49,9 +49,7 @@ class Assets {
   }
 
   SoundFile randomVolcanoSound() {
-    String sound = volcanoSounds[int(random(volcanoSounds.length))];
-    println(sound);
-    return new SoundFile(parent, sound);
+    return new SoundFile(parent, volcanoSounds[int(random(volcanoSounds.length))]);
   }
 
   SoundFile randomExplosionSound() {

@@ -62,9 +62,9 @@ class Volcano implements Firework {
     }
     pushMatrix();
     noStroke();
-    translate(location.x, location.y, location.z);
+    translate(location.x, location.y, 5);
     fill(particleColor, 100, 80, map(remainingLifespan, totalLifespan, 0, 255, 0));
-    box(3, 3, 20);
+    box(3, 3, 10);
     popMatrix();
   }
 
