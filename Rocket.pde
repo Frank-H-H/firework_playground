@@ -34,11 +34,11 @@ class Rocket implements Firework {
   void doOneCycle() {
     this.update();
     this.display();
-    this.remainingPropellant--;
-    this.remainingTimeUntilExplosion--;
   }
 
   void update() {
+    this.remainingPropellant--;
+    this.remainingTimeUntilExplosion--;
     if(this.remainingTimeUntilExplosion <= 0 && explosion == null) {
       this.explode();
     }
@@ -57,16 +57,18 @@ class Rocket implements Firework {
 
   // Method to display
   void display() {
-    pushMatrix();
-    noStroke();
-    translate(location.x, location.y, location.z + 5);
-    fill(thrustHue, 100, 80, 255);
-    box(3, 3, 10);
-    popMatrix();
+    if(explosion == null) {
+      pushMatrix();
+      noStroke();
+      translate(location.x, location.y, location.z + 5);
+      fill(thrustHue, 100, 80, 255);
+      box(3, 3, 10);
+      popMatrix();
+    }
   }
   
   void explode() {
-    this.explosion = new Explosion(location);
+    this.explosion = new Explosion(location, velocity, 7, 20);
   }
 
   boolean isDead() {

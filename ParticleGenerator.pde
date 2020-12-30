@@ -39,7 +39,7 @@ class ParticleGenerator {
       .hue(hue)
       .lifespan(random(duration - durationJitter, duration + durationJitter))
       .airResistance(random(airResistance - airResistanceJitter, airResistance + airResistanceJitter))
-      .smokeDuration(300));
+      .smokeDuration(random(50, 300)));
   }
 
   void emitParticles(int count) {
