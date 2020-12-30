@@ -64,4 +64,8 @@ class Bomb implements Firework {
   boolean isDead() {
     return this.explosion != null && explosion.isDead() && this.launcherParticleGenerator.isDead();
   }
+  
+  long particleCount() {
+    return this.launcherParticleGenerator.particleCount();
+  }
 }

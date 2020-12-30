@@ -56,4 +56,8 @@ class Volcano implements Firework {
   boolean isDead() {
     return this.remainingLifespan <= 0 && this.particleGenerator.isDead();
   }
+  
+  long particleCount() {
+    return this.particleGenerator.particleCount();
+  }
 }

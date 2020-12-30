@@ -70,4 +70,8 @@ class Rocket implements Firework {
   boolean isDead() {
     return this.explosion != null && explosion.isDead() && this.thrustParticleGenerator.isDead();
   }
+    
+  long particleCount() {
+    return this.thrustParticleGenerator.particleCount();
+  }
 }

@@ -89,4 +89,8 @@ class ParticleGenerator {
   boolean isDead() {
     return particles.isEmpty();
   }
+
+  long particleCount() {
+    return particles.size();
+  }
 }

@@ -61,6 +61,15 @@ void draw() {
   }
   physics();
   render();
+  if(frameCount % 100 == 0) {
+    long particleCount = 0;
+    for (int i = fireworks.size()-1; i >= 0; i--) {
+      particleCount += fireworks.get(i).particleCount();
+    }
+    println("Number of Fireworks:", fireworks.size(), "framerate:",  frameRate, "particleCount:",  particleCount);
+  }
+}
+
 void physics() {
   // running firework
   for (int i = fireworks.size()-1; i >= 0; i--) {
@@ -87,8 +96,6 @@ void render() {
     }
     firework.render();
   }
-  if(frameCount % 100 == 0)
-    println("Number of Fireworks:", fireworks.size());
 }
 
 void checkForClients() {

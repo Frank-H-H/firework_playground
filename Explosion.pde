@@ -59,4 +59,12 @@ class Explosion implements Firework {
   boolean isDead() {
     return this.comets.isEmpty();
   }
+  
+  long particleCount() {
+    long count = 0;
+    for (int i = this.comets.size()-1; i >= 0; i--) {
+      count += this.comets.get(i).particleCount();
+    }
+    return count;
+  }
 }

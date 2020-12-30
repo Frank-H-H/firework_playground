@@ -8,4 +8,7 @@ interface Firework {
 
   // Renders the firework in its current state
   void render();
+  
+  // counts all particles of this firework
+  long particleCount();
 }

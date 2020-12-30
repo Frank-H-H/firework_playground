@@ -86,5 +86,8 @@ class Comet implements Firework {
   boolean isDead() {
     return remainingLifespan <= 0 && glitterGenerator.isDead();
   }
-
+    
+  long particleCount() {
+    return this.glitterGenerator.particleCount();
+  }
 }
