@@ -4,6 +4,8 @@ class Particle {
   float hue;
   float remainingLifespan;
   float airResistanceFactor;
+  float totalSmokeDuration;
+  float remainingSmokeDuration;
   
   private Particle(Vec3D aLocation) {
     location = aLocation;
@@ -29,22 +31,32 @@ class Particle {
     return this;
   }
   
+  Particle smokeDuration(float aSmokeDuration) {
+    totalSmokeDuration = aSmokeDuration;
+    remainingSmokeDuration = totalSmokeDuration;
+    return this;
+  }
+  
   void doOneCycle() {
     update();
     display();
-    remainingLifespan--;
   }
 
   void update() {
+    remainingLifespan--;
     if(remainingLifespan <= 0) {
-      return;
+      remainingSmokeDuration--;
     }
     // already hit the ground. dont move
     if(location.z <= 0) {
       return;
     }
     velocity.scaleSelf(1 - airResistanceFactor);
-    velocity.addSelf(gravity);
+    if(remainingLifespan > 0) {
+      velocity.addSelf(gravity);
+    } else {
+      velocity.addSelf(gravity.scale(0.03));
+    }
     velocity.addSelf(wind);
     location.addSelf(velocity);
     // particles should not enter earth
@@ -52,10 +64,16 @@ class Particle {
   }
 
   void display() {
-    if(remainingLifespan <= 0) {
-      return;
+    if(remainingLifespan > 0) {
+      renderGlowing();
+    } else {
+      if(remainingSmokeDuration > 0) {
+        renderSmoke();
+      }
     }
-    
+  }
+
+  void renderGlowing() {
     float alphaFactor = 1;
     if(remainingLifespan <= 10) {
       alphaFactor = remainingLifespan / 10;
@@ -72,13 +90,33 @@ class Particle {
     stroke(hue, 70, 255, 100 * alphaFactor);
     strokeWeight(distanceFactor * 3);
     point(location.x, location.y, location.z);
+    // actual particle
     stroke(hue, 10, 255, 255 * alphaFactor);
     strokeWeight(distanceFactor);
     point(location.x, location.y, location.z);
   }
+
+  void renderSmoke() {
+    float alphaFactor = 1;
+    if(remainingSmokeDuration <= 100) {
+      alphaFactor = remainingSmokeDuration / 100;
+    }
+    
+    float distance = map(location.y, playground.frontLeft.y, playground.backLeft.y, 0, 1);
+    float distanceFactor = map(distance, 0, 1, 2, 0.1);
+    
+    // outer smoke
+    stroke(hue, 0, 30, 100 * alphaFactor);
+    strokeWeight(distanceFactor * 2);
+    point(location.x, location.y, location.z);
+    // smoke
+    stroke(hue, 0, 30, 255 * alphaFactor);
+    strokeWeight(distanceFactor * 1);
+    point(location.x, location.y, location.z);
+  }
   
   boolean isDead() {
-    return remainingLifespan <= 0;
+    return remainingLifespan <= 0 && remainingSmokeDuration <= 0;
   }
   
 }

@@ -15,7 +15,7 @@ class Bomb implements Firework {
       new Vec3D(0, 0, this.velocity.z * 0.75),
       random(0.3, 1),
       launcherParticleColor,
-      random(15, 80),
+      random(15, 30),
       5,
       random(0.1, 0.2),
       0.02

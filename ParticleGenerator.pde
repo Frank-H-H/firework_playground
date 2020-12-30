@@ -38,7 +38,8 @@ class ParticleGenerator {
       .moving(direction.copy().jitter(directionJitter))
       .hue(hue)
       .lifespan(random(duration - durationJitter, duration + durationJitter))
-      .airResistance(random(airResistance - airResistanceJitter, airResistance + airResistanceJitter)));
+      .airResistance(random(airResistance - airResistanceJitter, airResistance + airResistanceJitter))
+      .smokeDuration(300));
   }
 
   void emitParticles(int count) {
