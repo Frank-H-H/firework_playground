@@ -46,6 +46,10 @@ class Particle {
     remainingLifespan--;
     if(remainingLifespan <= 0) {
       remainingSmokeDuration--;
+      if(location.z <= 0) {
+        // smoke already hit the ground, now it's dead
+        remainingSmokeDuration = 0;
+      }
     }
     // already hit the ground. dont move
     if(location.z <= 0) {
@@ -106,12 +110,12 @@ class Particle {
     float distanceFactor = map(distance, 0, 1, 2, 0.1);
     
     // outer smoke
-    stroke(hue, 0, 30, 100 * alphaFactor);
-    strokeWeight(distanceFactor * 2);
+    stroke(hue, 0, 10, 100 * alphaFactor);
+    strokeWeight(distanceFactor * 4);
     point(location.x, location.y, location.z);
     // smoke
-    stroke(hue, 0, 30, 255 * alphaFactor);
-    strokeWeight(distanceFactor * 1);
+    stroke(hue, 0, 10, 255 * alphaFactor);
+    strokeWeight(distanceFactor * 2);
     point(location.x, location.y, location.z);
   }
   

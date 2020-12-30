@@ -7,7 +7,8 @@ class Assets {
   String[] rocketStartSounds;
   String[] bombStartSounds; 
   String[] volcanoSounds; 
-  String[] explosionSounds;
+  String[] largeExplosionSounds;
+  String[] smallExplosionSounds;
   
   
   Assets (PApplet aParent){
@@ -20,10 +21,14 @@ class Assets {
       "abschuss 4.wav",
       "Bottle Rocket-SoundBible.com-332895117.wav"
     };
-    explosionSounds = new String[] {
+    largeExplosionSounds = new String[] {
       "knall 1.wav",
-      "knall 2.wav",
       "knall 3.wav",
+      "salamisound-4330966-loud-firecrackers-shot-or.wav",
+      "salamisound-8469902-loud-firecrackers-shot-or.wav"
+    };
+    smallExplosionSounds = new String[] {
+      "knall 2.wav",
       "salamisound-4330966-loud-firecrackers-shot-or.wav",
       "salamisound-8469902-loud-firecrackers-shot-or.wav"
     };
@@ -52,7 +57,11 @@ class Assets {
     return new SoundFile(parent, volcanoSounds[int(random(volcanoSounds.length))]);
   }
 
-  SoundFile randomExplosionSound() {
-    return new SoundFile(parent, explosionSounds[int(random(explosionSounds.length))]);
+  SoundFile randomLargeExplosionSound() {
+    return new SoundFile(parent, largeExplosionSounds[int(random(largeExplosionSounds.length))]);
+  }
+
+  SoundFile randomSmallExplosionSound() {
+    return new SoundFile(parent, smallExplosionSounds[int(random(smallExplosionSounds.length))]);
   }
 }

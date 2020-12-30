@@ -10,20 +10,21 @@ class Explosion implements Firework {
   Explosion(Vec3D aLocation, Vec3D aVelocity, float minExplosionSize, float maxExplosionSize) {
     this.location = aLocation;
     this.velocity = aVelocity;
-    this.timeAfterExplosion = 0;
+    this.timeAfterExplosion = -1;
     this.cometColor = random(255);
     this.cometLifeSpan = random(20, 200);
+    float explosionSize = random(minExplosionSize, maxExplosionSize);
     numberOfComets = random(200, 700);
     this.comets = new ArrayList<Comet>();
     for (int i = 0; i <= numberOfComets; i++) {
       comets.add(new Comet(
           this.location.copy(),
-          Vec3D.randomVector().scale(random(minExplosionSize, maxExplosionSize)).add(velocity),
+          Vec3D.randomVector().scale(explosionSize).add(velocity),
           this.cometColor,
           random(cometLifeSpan * 0.5, cometLifeSpan * 1.5), random(0.1, 0.2)));
     }
     float distanceFactor = playground.distanceFactorFromViewer(this.location);
-    SoundFile startSound = assets.randomExplosionSound();
+    SoundFile startSound = explosionSize >= 30 ? assets.randomLargeExplosionSound() : assets.randomSmallExplosionSound();
     startSound.amp(map(distanceFactor,0,1,1,0.05));
     startSound.play();
   }
