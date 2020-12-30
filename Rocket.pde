@@ -1,27 +1,30 @@
 class Rocket implements Firework {
   PVector location;
   PVector velocity;
-  float thrustColor;
+  float thrustHue;
   float thrust;
   float remainingPropellant;
   float remainingTimeUntilExplosion;
-  float horizontalThrustSpread;
-  float thrustParticleLifespan;
-  float thrustParticleAirResistance;
-  ArrayList<Particle> thrustParticles;
+  ParticleGenerator thrustParticleGenerator;
   Explosion explosion;
 
   Rocket(PVector aLocation) {
     this.location = new PVector(aLocation.x, aLocation.y, 0.1);
     this.velocity = new PVector(0, 0, 0);
-    this.thrustColor = random(255);
+    this.thrustHue = random(255);
     this.thrust = random(0.23, 0.27);
     this.remainingPropellant = random(100, 120);
     this.remainingTimeUntilExplosion = random(100, 120);
-    this.horizontalThrustSpread = random(0.25, 1);
-    this.thrustParticleLifespan = random(15, 80);
-    this.thrustParticleAirResistance = random(0.02, 0.08);
-    this.thrustParticles = new ArrayList<Particle>();
+    thrustParticleGenerator = new ParticleGenerator(
+      location,
+      new PVector(0, 0, thrust * -5),
+      random(0.1, 0.3),
+      thrustHue,
+      random(10, 40),
+      6,
+      random(0.02, 0.08),
+      0.002
+      );
     float distanceFactor = playground.distanceFactorFromViewer(this.location);
     SoundFile startSound = assets.randomRocketStartSound();
     startSound.amp(map(distanceFactor,0,1,0.6,0.02));
@@ -44,20 +47,12 @@ class Rocket implements Firework {
     } else {
       if(this.remainingPropellant > 0) {
         this.velocity.add(new PVector(0, 0, thrust));
-        emitThrustParticle();
-        emitThrustParticle();
-        emitThrustParticle();
+        thrustParticleGenerator.emitParticles(3);
       }
       this.velocity.add(gravity);
       this.location.add(this.velocity);
     }
-    for (int i = this.thrustParticles.size()-1; i >= 0; i--) {
-      Particle particle = this.thrustParticles.get(i);
-      if (particle.isDead()) {
-        this.thrustParticles.remove(i);
-      }
-      particle.doOneCycle();
-    }
+    thrustParticleGenerator.update();
   }
 
   // Method to display
@@ -65,7 +60,7 @@ class Rocket implements Firework {
     pushMatrix();
     noStroke();
     translate(location.x, location.y, location.z + 5);
-    fill(thrustColor, 100, 80, 255);
+    fill(thrustHue, 100, 80, 255);
     box(3, 3, 10);
     popMatrix();
   }
@@ -73,19 +68,8 @@ class Rocket implements Firework {
   void explode() {
     this.explosion = new Explosion(location);
   }
-  
-  void emitThrustParticle() {
-    this.thrustParticles.add(new Particle(
-      this.location.copy(),
-      new PVector(
-        random(-this.horizontalThrustSpread,this.horizontalThrustSpread),
-        random(-this.horizontalThrustSpread,this.horizontalThrustSpread),
-        random(this.thrust*0.9*-5, this.thrust*1.1*-5)),
-      this.thrustColor,
-      random(thrustParticleLifespan * 0.8, thrustParticleLifespan * 1.2), random(thrustParticleAirResistance*0.9, thrustParticleAirResistance*1.1)));
-  }
 
   boolean isDead() {
-    return this.explosion != null && explosion.isDead() && this.thrustParticles.isEmpty();
+    return this.explosion != null && explosion.isDead() && this.thrustParticleGenerator.isDead();
   }
 }
