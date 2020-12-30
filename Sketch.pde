@@ -24,9 +24,11 @@ PeasyCam camera;
 
 Minim minim;
 Assets assets;
+long startupTime;
 
 void setup() {
-  sound = new Sound(this);
+  startupTime = System.nanoTime();
+  minim = new Minim(this);
   assets = new Assets(this);
 
   fullScreen(P3D);
@@ -36,7 +38,6 @@ void setup() {
   camera.setPitchRotationMode();
 
   colorMode(HSB);
-  blendMode(ADD);
   
   playground = new Playground();
   
@@ -49,13 +50,13 @@ void setup() {
 
 void draw() {
   if(frameCount - frameRate * 60 > lastFrameWithActivity) {
-    if(random(0,1000) <= 5 - fireworks.size()) {
+    if(random(0, 1000) <= 10 - this.fireworks.size()) {
       addBomb();
     }
-    if(random(0,1000) <= 5 - fireworks.size()) {
+    if(random(0, 1000) <= 10 - this.fireworks.size()) {
       addVolcano();
     }
-    if(random(0,1000) <= 5 - fireworks.size()) {
+    if(random(0, 1000) <= 10 - this.fireworks.size()) {
       addRocket();
     }
   }
@@ -65,12 +66,11 @@ void draw() {
   render();
   long renderDuration = System.nanoTime() - startTime - physicsDuration;
   if(frameCount % 100 == 0) {
-    println("physicsDuration:", physicsDuration / 1000, "renderDuration:",  renderDuration / 1000);
     long particleCount = 0;
     for (int i = fireworks.size()-1; i >= 0; i--) {
       particleCount += fireworks.get(i).particleCount();
     }
-    println("Number of Fireworks:", fireworks.size(), "framerate:",  frameRate, "particleCount:",  particleCount);
+    println("total runtime:", (startTime - startupTime) / 1000 / 1000 / 1000 / 60, "min", "framerate:",  frameRate, "# Fireworks:", fireworks.size(), "particleCount:",  particleCount, "physicsDuration:", physicsDuration / 1000, "renderDuration:",  renderDuration / 1000);
   }
 }
 
@@ -86,7 +86,8 @@ void physics() {
 }
 
 void render() {
-  if(frameRate <= 30) { 
+  if(frameRate <= 30 && (frameCount % 100 != 0)) {
+    // skip, but only, if we are not in an important frame
     return;
   }
   background(0);
