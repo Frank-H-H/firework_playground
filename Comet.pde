@@ -4,14 +4,19 @@ class Comet {
   float hue;
   float remainingLifespan;
   float airResistanceFactor;
-  
-  private Comet(Vec3D aLocation) {
+  ParticleGenerator glitterGenerator;
+
+  private Comet(Vec3D aLocation, Vec3D aVelocity) {
     location = aLocation;
-  }
-  
-  Comet moving(Vec3D aVelocity) {
     velocity = aVelocity.copy();
-    return this;
+    glitterGenerator = new ParticleGenerator(location.copy(), new Vec3D(0, 0, 0))
+      .directionJitter(0.1)
+      .hue(hue)
+      .duration(random(50, 150))
+      .durationJitter(10)
+      .airResistance(0.1)
+      .airResistanceJitter(0)
+      .averageSmokeDuration(300);
   }
   
   Comet hue(float aHue) {
@@ -32,10 +37,11 @@ class Comet {
   void doOneCycle() {
     update();
     display();
-    remainingLifespan--;
   }
 
   void update() {
+    remainingLifespan--;
+    glitterGenerator.update();
     if(remainingLifespan <= 0) {
       return;
     }
@@ -45,10 +51,14 @@ class Comet {
     }
     velocity.scaleSelf(1 - airResistanceFactor);
     // gravity is not that high for comets
-    velocity.addSelf(gravity.scale(0.5));
+    velocity.addSelf(gravity.scale(0.3));
     location.addSelf(velocity);
     // comets should not enter earth
     location.z = max(location.z, 0);
+    glitterGenerator.setLocation(location.copy());
+    if(random(1) <= 0.1) {
+      glitterGenerator.emitParticle();
+    }
   }
 
   void display() {
@@ -78,7 +88,7 @@ class Comet {
   }
   
   boolean isDead() {
-    return remainingLifespan <= 0;
+    return remainingLifespan <= 0 && glitterGenerator.isDead();
   }
 
 }

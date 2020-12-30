@@ -17,8 +17,7 @@ class Explosion implements Firework {
     numberOfComets = random(200, 700);
     this.comets = new ArrayList<Comet>();
     for (int i = 0; i <= numberOfComets; i++) {
-      comets.add(new Comet(this.location.copy())
-        .moving(Vec3D.randomVector().scale(explosionSize).add(velocity))
+      comets.add(new Comet(this.location.copy(), Vec3D.randomVector().scale(explosionSize).add(velocity))
         .hue(this.cometColor)
         .lifespan(random(cometLifeSpan * 0.5, cometLifeSpan * 1.5))
         .airResistance(random(averageCometSize * 0.9, averageCometSize * 1.1)));
