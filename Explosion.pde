@@ -23,6 +23,16 @@ class Explosion implements Firework {
     float explosionSize = random(minExplosionSize, maxExplosionSize);
     numberOfComets = random(100, 110);
     this.comets = new ArrayList<Particle>();
+    for (int i = 0; i <= maxExplosionSize; i++) {
+      //smoke
+      comets.add(new Particle(this.location.copy()).moving(Vec3D.randomVector().scale(explosionSize).add(velocity))
+          .hue(this.cometColor)
+          .lifespan(0)
+          .airResistance(random(0.2, averageCometSize * 0.3))
+          .mass(averageCometMass)
+          .smokeDuration(200)
+          .size(1.5));
+    }
     for (int i = 0; i <= numberOfComets; i++) {
       if(hasGlitter) {
         comets.add(new Comet(this.location.copy(), Vec3D.randomVector().scale(explosionSize).add(velocity))
