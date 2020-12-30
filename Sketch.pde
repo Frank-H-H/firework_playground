@@ -33,6 +33,7 @@ void setup() {
   camera.setPitchRotationMode();
 
   colorMode(HSB);
+  blendMode(ADD);
   
   playground = new Playground();
   
