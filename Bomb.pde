@@ -10,16 +10,14 @@ class Bomb implements Firework {
     this.location = new Vec3D(aLocation.x, aLocation.y, 0.1);
     this.velocity = new Vec3D(0, 0, random(14,16));
     this.launcherParticleColor = random(255);
-    launcherParticleGenerator = new ParticleGenerator(
-      location,
-      new Vec3D(0, 0, this.velocity.z * 0.75),
-      random(0.3, 1),
-      launcherParticleColor,
-      random(15, 30),
-      5,
-      random(0.1, 0.2),
-      0.02
-      );
+    launcherParticleGenerator = new ParticleGenerator(location, new Vec3D(0, 0, this.velocity.z * 0.75))
+      .directionJitter(random(0.3, 1))
+      .hue(launcherParticleColor)
+      .duration(random(15, 30))
+      .durationJitter(5)
+      .airResistance(random(0.1, 0.2))
+      .airResistanceJitter(0.02)
+      .averageSmokeDuration(200);
     distanceFromViewer = playground.distanceFactorFromViewer(this.location);
     SoundFile startSound = assets.randomBombStartSound();
     startSound.amp(map(distanceFromViewer,0,1,0.6,0.02));

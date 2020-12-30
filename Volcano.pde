@@ -12,16 +12,14 @@ class Volcano implements Firework {
     this.particleColor = random(255);
     this.totalLifespan = random(600, 800);
     this.remainingLifespan = this.totalLifespan;
-    particleGenerator = new ParticleGenerator(
-      location,
-      new Vec3D(0, 0, random(10, 15)),
-      random(1, 2.5),
-      particleColor,
-      random(60, 110),
-      20,
-      random(0.02, 0.08),
-      0.002
-      );
+    particleGenerator = new ParticleGenerator(location, new Vec3D(0, 0, random(10, 15)))
+      .directionJitter(random(1, 2.5))
+      .hue(particleColor)
+      .duration(random(50, 110))
+      .durationJitter(50)
+      .airResistance(random(0.02, 0.08))
+      .airResistanceJitter(0.002)
+      .averageSmokeDuration(200);
     distanceFromViewer = playground.distanceFactorFromViewer(this.location);
     sound = assets.randomVolcanoSound();
     sound.amp(map(distanceFromViewer,0,1,0.6,0.02));

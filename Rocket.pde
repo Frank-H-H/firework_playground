@@ -15,16 +15,14 @@ class Rocket implements Firework {
     this.thrust = random(0.23, 0.27);
     this.remainingPropellant = random(100, 120);
     this.remainingTimeUntilExplosion = random(100, 120);
-    thrustParticleGenerator = new ParticleGenerator(
-      location,
-      new Vec3D(0, 0, thrust * -5),
-      random(0.1, 0.3),
-      thrustHue,
-      random(10, 40),
-      6,
-      random(0.02, 0.08),
-      0.002
-      );
+    thrustParticleGenerator = new ParticleGenerator(location, new Vec3D(0, 0, thrust * -5))
+      .directionJitter(random(0.1, 0.3))
+      .hue(thrustHue)
+      .duration(random(10, 40))
+      .durationJitter(6)
+      .airResistance(random(0.02, 0.08))
+      .airResistanceJitter(0.002)
+      .averageSmokeDuration(200);
     float distanceFactor = playground.distanceFactorFromViewer(this.location);
     SoundFile startSound = assets.randomRocketStartSound();
     startSound.amp(map(distanceFactor,0,1,0.6,0.02));
