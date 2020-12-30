@@ -1,11 +1,11 @@
 class Comet {
-  PVector location;
-  PVector velocity;
+  Vec3D location;
+  Vec3D velocity;
   float hue;
   float remainingLifespan;
   float airResistanceFactor;
   
-  Comet(PVector aLocation, PVector aVelocity, float aHue, float aRemainingLifespan, float anAirResistanceFactor) {
+  Comet(Vec3D aLocation, Vec3D aVelocity, float aHue, float aRemainingLifespan, float anAirResistanceFactor) {
     location = aLocation;
     velocity = aVelocity;
     hue = aHue;
@@ -27,7 +27,7 @@ class Comet {
     if(location.z <= 0) {
       return;
     }
-    velocity.mult(1 - airResistanceFactor);
+    velocity.scale(1 - airResistanceFactor);
     velocity.add(gravity);
     location.add(velocity);
     // comets should not enter earth

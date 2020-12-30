@@ -1,18 +1,18 @@
 class Bomb implements Firework {
-  PVector location;
-  PVector velocity;
+  Vec3D location;
+  Vec3D velocity;
   float distanceFromViewer;
   float launcherParticleColor;
   ParticleGenerator launcherParticleGenerator;
   Explosion explosion;
 
-  Bomb(PVector aLocation) {
-    this.location = new PVector(aLocation.x, aLocation.y, 0.1);
-    this.velocity = new PVector(0, 0, random(14,16));
+  Bomb(Vec3D aLocation) {
+    this.location = new Vec3D(aLocation.x, aLocation.y, 0.1);
+    this.velocity = new Vec3D(0, 0, random(14,16));
     this.launcherParticleColor = random(255);
     launcherParticleGenerator = new ParticleGenerator(
       location,
-      new PVector(0, 0, this.velocity.z * 0.75),
+      new Vec3D(0, 0, this.velocity.z * 0.75),
       random(0.3, 1),
       launcherParticleColor,
       random(15, 80),
@@ -39,8 +39,8 @@ class Bomb implements Firework {
     if(this.explosion != null) {
       this.explosion.doOneCycle();
     } else {
-      this.velocity.add(gravity);
-      this.location.add(this.velocity);
+      this.velocity.addSelf(gravity);
+      this.location.addSelf(this.velocity);
     }
     launcherParticleGenerator.update();
   }

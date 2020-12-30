@@ -1,13 +1,13 @@
 class Particle {
-  PVector location;
-  PVector velocity;
+  Vec3D location;
+  Vec3D velocity;
   float hue;
   float remainingLifespan;
   float airResistanceFactor;
   
-  Particle(PVector aLocation, PVector aVelocity, float aHue, float aRemainingLifespan, float anAirResistanceFactor) {
+  Particle(Vec3D aLocation, Vec3D aVelocity, float aHue, float aRemainingLifespan, float anAirResistanceFactor) {
     location = aLocation;
-    velocity = aVelocity;
+    velocity = aVelocity.copy();
     hue = aHue;
     remainingLifespan = aRemainingLifespan;
     airResistanceFactor = anAirResistanceFactor;
@@ -27,9 +27,9 @@ class Particle {
     if(location.z <= 0) {
       return;
     }
-    velocity.mult(1 - airResistanceFactor);
-    velocity.add(gravity);
-    location.add(velocity);
+    velocity.scaleSelf(1 - airResistanceFactor);
+    velocity.addSelf(gravity);
+    location.addSelf(velocity);
     // particles should not enter earth
     location.z = max(location.z, 0);
   }

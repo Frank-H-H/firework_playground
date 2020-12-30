@@ -1,12 +1,12 @@
 class Explosion implements Firework {
-  PVector location;
+  Vec3D location;
   float timeAfterExplosion;
   float numberOfComets;
   float cometColor;
   float cometLifeSpan;
   ArrayList<Comet> comets;
 
-  Explosion(PVector aLocation) {
+  Explosion(Vec3D aLocation) {
     this.location = aLocation;
     this.timeAfterExplosion = 0;
     this.cometColor = random(255);
@@ -16,7 +16,7 @@ class Explosion implements Firework {
     for (int i = 0; i <= numberOfComets; i++) {
       comets.add(new Comet(
           this.location.copy(),
-          PVector.random3D().mult(random(20, 30)),
+          Vec3D.randomVector().scale(random(20, 30)),
           this.cometColor,
           random(cometLifeSpan * 0.5, cometLifeSpan * 1.5), random(0.1, 0.2)));
     }

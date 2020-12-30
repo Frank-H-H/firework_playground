@@ -39,19 +39,19 @@ class Playground {
   // The playground is not a rectangle. First, a random distance is chosen. Depending on
   // that distance from the near plane (given by the both front points), an x coordinate is
   // randomly selected
-  PVector randomPointOnPlayground() {
+  Vec3D randomPointOnPlayground() {
     float randomY = random(min(frontLeft.y, backLeft.y), max(frontLeft.y, backLeft.y));
     float distanceFromViewer = map(randomY, frontLeft.y, backLeft.y, 0, 1);
     float minXValueAtThatDistance = map(distanceFromViewer, 0, 1, frontLeft.x, backLeft.x);
     float maxXValueAtThatDistance = map(distanceFromViewer, 0, 1, frontRight.x, backRight.x);
     float randomX = random(minXValueAtThatDistance, maxXValueAtThatDistance);
-    return new PVector(randomX, randomY, 0);
+    return new Vec3D(randomX, randomY, 0);
   }
   
   // Returns the distance of the provided location from the viewer in a factor
   // 0 -> very near
   // 1 -> very far
-  float distanceFactorFromViewer(PVector aLocation) {
+  float distanceFactorFromViewer(Vec3D aLocation) {
     return map(aLocation.y, playground.frontLeft.y, playground.backLeft.y, 0, 1);
   }
 

@@ -13,7 +13,7 @@ Server httpServer;
 
 long lastFrameWithActivity = 0;
 
-PVector gravity = new PVector(0, 0, -0.1);
+Vec3D gravity = new Vec3D(0, 0, -0.1);
 
 Playground playground;
 

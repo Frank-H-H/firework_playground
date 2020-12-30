@@ -1,8 +1,8 @@
 import toxi.geom.*;
 
 class ParticleGenerator {
-  PVector location;
-  PVector direction;
+  Vec3D location;
+  Vec3D direction;
   float directionJitter;
   float hue;
   float duration;
@@ -12,7 +12,7 @@ class ParticleGenerator {
 
   ArrayList<Particle> particles = new ArrayList<Particle>();
   
-  ParticleGenerator(PVector aLocation, PVector aDirection, float aDirectionJitter, float aHue, float aDuration, float aDurationJitter, float anAirResistance, float anAirResistanceJitter) {
+  ParticleGenerator(Vec3D aLocation, Vec3D aDirection, float aDirectionJitter, float aHue, float aDuration, float aDurationJitter, float anAirResistance, float anAirResistanceJitter) {
     location = aLocation;
     direction = aDirection;
     directionJitter = aDirectionJitter;
@@ -34,12 +34,9 @@ class ParticleGenerator {
   }
   
   void emitParticle() {
-    Vec3D baseDir = new Vec3D(direction.x, direction.y, direction.z);
-    baseDir = baseDir.jitter(directionJitter);
-    PVector targetDirection = new PVector(baseDir.x, baseDir.y, baseDir.z);
     this.particles.add(new Particle(
       this.location.copy(),
-      targetDirection,
+      direction.copy().jitter(directionJitter),
       hue,
       random(duration - durationJitter, duration + durationJitter),
       random(airResistance - airResistanceJitter, airResistance + airResistanceJitter)));

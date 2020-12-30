@@ -1,5 +1,5 @@
 class Volcano implements Firework {
-  PVector location;
+  Vec3D location;
   float particleColor;
   float remainingLifespan;
   float totalLifespan;
@@ -7,14 +7,14 @@ class Volcano implements Firework {
   ParticleGenerator particleGenerator;
   SoundFile sound;
   
-  Volcano(PVector aLocation) {
-    this.location = new PVector(aLocation.x, aLocation.y, 0.1);
+  Volcano(Vec3D aLocation) {
+    this.location = new Vec3D(aLocation.x, aLocation.y, 0.1);
     this.particleColor = random(255);
     this.totalLifespan = random(600, 800);
     this.remainingLifespan = this.totalLifespan;
     particleGenerator = new ParticleGenerator(
       location,
-      new PVector(0, 0, random(10, 15)),
+      new Vec3D(0, 0, random(10, 15)),
       random(1, 2.5),
       particleColor,
       random(60, 110),
