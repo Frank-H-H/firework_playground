@@ -14,6 +14,7 @@ Server httpServer;
 long lastFrameWithActivity = 0;
 
 Vec3D gravity = new Vec3D(0, 0, -0.1);
+Vec3D wind = new Vec3D(random(-0.05,0.05), random(-0.05,0.05), 0);
 
 Playground playground;
 

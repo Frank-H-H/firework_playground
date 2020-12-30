@@ -29,6 +29,7 @@ class Particle {
     }
     velocity.scaleSelf(1 - airResistanceFactor);
     velocity.addSelf(gravity);
+    velocity.addSelf(wind);
     location.addSelf(velocity);
     // particles should not enter earth
     location.z = max(location.z, 0);
