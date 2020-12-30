@@ -64,7 +64,7 @@ class Rocket implements Firework {
   }
   
   void explode() {
-    this.explosion = new Explosion(location, velocity, 7, 20, random(0.07, 0.15));
+    this.explosion = new Explosion(location, velocity, 7, 15, random(0.07, 0.15));
   }
 
   boolean isDead() {

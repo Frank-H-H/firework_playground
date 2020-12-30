@@ -4,6 +4,7 @@ class Comet implements Firework {
   float hue;
   float remainingLifespan;
   float airResistanceFactor;
+  float mass = 0.3;
   ParticleGenerator glitterGenerator;
 
   private Comet(Vec3D aLocation, Vec3D aVelocity) {
@@ -16,7 +17,7 @@ class Comet implements Firework {
       .durationJitter(10)
       .airResistance(0.1)
       .airResistanceJitter(0)
-      .averageSmokeDuration(300);
+      .averageSmokeDuration(100);
   }
   
   Comet hue(float aHue) {
@@ -34,6 +35,11 @@ class Comet implements Firework {
     return this;
   }
 
+  Comet mass(float aMass) {
+    mass = aMass;
+    return this;
+  }
+  
   void physics() {
     remainingLifespan--;
     glitterGenerator.physics();
@@ -46,7 +52,7 @@ class Comet implements Firework {
     }
     velocity.scaleSelf(1 - airResistanceFactor);
     // gravity is not that high for comets
-    velocity.addSelf(gravity.scale(0.3));
+    velocity.addSelf(gravity.scale(mass));
     location.addSelf(velocity);
     // comets should not enter earth
     location.z = max(location.z, 0);

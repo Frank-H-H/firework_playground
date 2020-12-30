@@ -12,11 +12,12 @@ class Volcano implements Firework {
     this.particleColor = random(255);
     this.totalLifespan = random(600, 800);
     this.remainingLifespan = this.totalLifespan;
+    float duration = random(50, 110);
     particleGenerator = new ParticleGenerator(location, new Vec3D(0, 0, random(10, 15)))
       .directionJitter(random(1, 2.5))
       .hue(particleColor)
-      .duration(random(50, 110))
-      .durationJitter(50)
+      .duration(duration)
+      .durationJitter(duration)
       .airResistance(random(0.02, 0.08))
       .airResistanceJitter(0.002)
       .averageSmokeDuration(200);

@@ -1,5 +1,3 @@
-import processing.sound.*;
-
 class Assets {
 
   PApplet parent;

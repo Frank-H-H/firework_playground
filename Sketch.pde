@@ -59,9 +59,13 @@ void draw() {
       addRocket();
     }
   }
+  long startTime = System.nanoTime();
   physics();
+  long physicsDuration = System.nanoTime() - startTime;
   render();
+  long renderDuration = System.nanoTime() - startTime - physicsDuration;
   if(frameCount % 100 == 0) {
+    println("physicsDuration:", physicsDuration / 1000, "renderDuration:",  renderDuration / 1000);
     long particleCount = 0;
     for (int i = fireworks.size()-1; i >= 0; i--) {
       particleCount += fireworks.get(i).particleCount();
