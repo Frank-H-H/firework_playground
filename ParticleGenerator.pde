@@ -1,5 +1,3 @@
-import toxi.geom.*;
-
 class ParticleGenerator {
   Vec3D location;
   Vec3D direction;
@@ -57,13 +55,19 @@ class ParticleGenerator {
     location = aLocation;
   }
   
-  void update() {
+  void physics() {
     for (int i = this.particles.size()-1; i >= 0; i--) {
       Particle particle = this.particles.get(i);
       if (particle.isDead()) {
         this.particles.remove(i);
       }
-      particle.doOneCycle();
+      particle.physics();
+    }
+  }
+  
+  void render() {
+    for (int i = this.particles.size()-1; i >= 0; i--) {
+      this.particles.get(i).render();
     }
   }
   
@@ -82,7 +86,6 @@ class ParticleGenerator {
     }
   }
 
-  
   boolean isDead() {
     return particles.isEmpty();
   }

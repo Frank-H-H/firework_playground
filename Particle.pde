@@ -39,12 +39,7 @@ class Particle {
     return this;
   }
   
-  void doOneCycle() {
-    update();
-    display();
-  }
-
-  void update() {
+  void physics() {
     remainingLifespan--;
     if(remainingLifespan <= 0) {
       remainingSmokeDuration--;
@@ -70,7 +65,7 @@ class Particle {
     location.z = max(location.z, 0);
   }
 
-  void display() {
+  void render() {
     if(remainingLifespan > 0) {
       renderGlowing();
     } else {

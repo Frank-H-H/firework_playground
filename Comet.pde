@@ -1,4 +1,4 @@
-class Comet {
+class Comet implements Firework {
   Vec3D location;
   Vec3D velocity;
   float hue;
@@ -33,15 +33,10 @@ class Comet {
     airResistanceFactor = anAirResistanceFactor;
     return this;
   }
-  
-  void doOneCycle() {
-    update();
-    display();
-  }
 
-  void update() {
+  void physics() {
     remainingLifespan--;
-    glitterGenerator.update();
+    glitterGenerator.physics();
     if(remainingLifespan <= 0) {
       return;
     }
@@ -61,7 +56,8 @@ class Comet {
     }
   }
 
-  void display() {
+  void render() {
+    glitterGenerator.render();
     if(remainingLifespan <= 0) {
       return;
     }

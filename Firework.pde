@@ -3,6 +3,9 @@ interface Firework {
   // Determines, whether the firework is completely dead or if there is still anything going off
   boolean isDead();
   
-  // Let's this firework step one cycle forward (physics) and also renders all parts of this firework
-  void doOneCycle();
+  // Updates the internal state of this firework for one cycle
+  void physics();
+
+  // Renders the firework in its current state
+  void render();
 }

@@ -6,6 +6,8 @@
 import peasy.*;
 import processing.sound.*;
 import processing.net.*;
+import toxi.geom.*;
+
 
 ArrayList<Firework> fireworks;
 
@@ -45,7 +47,6 @@ void setup() {
   this.fireworks = new ArrayList<Firework>();
 }
 
-// zeichnen
 void draw() {
   if(frameCount - frameRate * 60 > lastFrameWithActivity) {
     if(random(0,1000) <= 5 - fireworks.size()) {
@@ -58,9 +59,24 @@ void draw() {
       addRocket();
     }
   }
-  
-  background(0);
+  physics();
+  render();
+void physics() {
+  // running firework
+  for (int i = fireworks.size()-1; i >= 0; i--) {
+    Firework firework = fireworks.get(i);
+    if (firework.isDead()) {
+      fireworks.remove(i);
+    }
+    firework.physics();
+  }
+}
 
+void render() {
+  if(frameRate <= 30) { 
+    return;
+  }
+  background(0);
   playground.display();
   
   // running firework
@@ -69,7 +85,7 @@ void draw() {
     if (firework.isDead()) {
       fireworks.remove(i);
     }
-    firework.doOneCycle();
+    firework.render();
   }
   if(frameCount % 100 == 0)
     println("Number of Fireworks:", fireworks.size());

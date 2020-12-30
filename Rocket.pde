@@ -29,19 +29,14 @@ class Rocket implements Firework {
     startSound.play();
   }
 
-  void doOneCycle() {
-    this.update();
-    this.display();
-  }
-
-  void update() {
+  void physics() {
     this.remainingPropellant--;
     this.remainingTimeUntilExplosion--;
     if(this.remainingTimeUntilExplosion <= 0 && explosion == null) {
       this.explode();
     }
     if(this.explosion != null) {
-      this.explosion.doOneCycle();
+      this.explosion.physics();
     } else {
       if(this.remainingPropellant > 0) {
         this.velocity.addSelf(new Vec3D(0, 0, thrust));
@@ -50,12 +45,14 @@ class Rocket implements Firework {
       this.velocity.addSelf(gravity);
       this.location.addSelf(this.velocity);
     }
-    thrustParticleGenerator.update();
+    thrustParticleGenerator.physics();
   }
 
-  // Method to display
-  void display() {
-    if(explosion == null) {
+  void render() {
+    if(this.explosion != null) {
+      this.explosion.render();
+    } else {
+      // render rocket
       pushMatrix();
       noStroke();
       translate(location.x, location.y, location.z + 5);
@@ -63,6 +60,7 @@ class Rocket implements Firework {
       box(3, 3, 10);
       popMatrix();
     }
+    thrustParticleGenerator.render();
   }
   
   void explode() {

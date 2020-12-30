@@ -26,27 +26,22 @@ class Volcano implements Firework {
     sound.play();
   }
   
-  void doOneCycle() {
-    update();
-    display();
-    remainingLifespan--;
-  }
-  
-  void update() {
+  void physics() {
     if(this.remainingLifespan > 0) {
       particleGenerator.emitParticles(3);
     }
-    particleGenerator.update();
+    particleGenerator.physics();
     if(this.remainingLifespan <= 10 && this.remainingLifespan >= 0) {
       sound.amp(map(distanceFromViewer,0,1,0.6,0.02) * remainingLifespan / 10);
     }
     if(remainingLifespan < 0) {
       sound.stop();
     }
+    remainingLifespan--;
   }
 
-  // Method to display
-  void display() {
+  void render() {
+    particleGenerator.render();
     if(this.remainingLifespan <= 0) {
       return;
     }

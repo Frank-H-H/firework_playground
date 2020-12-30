@@ -28,23 +28,21 @@ class Explosion implements Firework {
     startSound.play();
   }
 
-  void doOneCycle() {
-    update();
-    display();
-  }
-
-  void update() {
+  void physics() {
     this.timeAfterExplosion++;
     for (int i = this.comets.size()-1; i >= 0; i--) {
       Comet comet = this.comets.get(i);
       if (comet.isDead()) {
         this.comets.remove(i);
       }
-      comet.doOneCycle();
+      comet.physics();
     }
   }
 
-  void display() {
+  void render() {
+    for (int i = this.comets.size()-1; i >= 0; i--) {
+      this.comets.get(i).render();
+    }
     // render flash
     if(this.timeAfterExplosion <= 20) {
       for (int radius = 10; radius <= 100; radius = radius + 5) {

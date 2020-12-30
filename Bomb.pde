@@ -25,26 +25,24 @@ class Bomb implements Firework {
     launcherParticleGenerator.emitParticles(200);
   }
 
-  void doOneCycle() {
-    this.update();
-    this.display();
-  }
-
-  void update() {
+  void physics() {
     if(this.velocity.z <= 0 && explosion == null) {
       this.explode();
     }
     if(this.explosion != null) {
-      this.explosion.doOneCycle();
+      this.explosion.physics();
     } else {
       this.velocity.addSelf(gravity);
       this.location.addSelf(this.velocity);
     }
-    launcherParticleGenerator.update();
+    launcherParticleGenerator.physics();
   }
 
-  // Method to display
-  void display() {
+  void render() {
+    if(this.explosion != null) {
+      this.explosion.render();
+    }
+    launcherParticleGenerator.render();
     // render launcher
     pushMatrix();
     noStroke();
