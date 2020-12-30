@@ -27,9 +27,9 @@ class Comet {
     if(location.z <= 0) {
       return;
     }
-    velocity.scale(1 - airResistanceFactor);
-    velocity.add(gravity);
-    location.add(velocity);
+    velocity.scaleSelf(1 - airResistanceFactor);
+    velocity.addSelf(gravity);
+    location.addSelf(velocity);
     // comets should not enter earth
     location.z = max(location.z, 0);
   }
