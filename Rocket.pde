@@ -7,6 +7,7 @@ class Rocket implements Firework {
   float remainingTimeUntilExplosion;
   ParticleGenerator thrustParticleGenerator;
   Explosion explosion;
+  AudioPlayer startSound;
 
   Rocket(Vec3D aLocation) {
     this.location = new Vec3D(aLocation.x, aLocation.y, 0.1);
@@ -24,8 +25,8 @@ class Rocket implements Firework {
       .airResistanceJitter(0.002)
       .averageSmokeDuration(200);
     float distanceFactor = playground.distanceFactorFromViewer(this.location);
-    SoundFile startSound = assets.randomRocketStartSound();
-    startSound.amp(map(distanceFactor,0,1,0.6,0.02));
+    startSound = assets.randomRocketStartSound();
+    startSound.setGain(map(distanceFactor, 0, 1, 0, -30));
     startSound.play();
   }
 
@@ -71,6 +72,13 @@ class Rocket implements Firework {
     return this.explosion != null && explosion.isDead() && this.thrustParticleGenerator.isDead();
   }
     
+  void destroy() {
+    if(explosion != null) {
+      explosion.destroy();
+    }
+    startSound.close();
+  }
+
   long particleCount() {
     return this.thrustParticleGenerator.particleCount();
   }

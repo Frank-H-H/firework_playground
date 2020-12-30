@@ -4,7 +4,7 @@
 // Code for: https://youtu.be/CKeyIbT3vXI
 
 import peasy.*;
-import processing.sound.*;
+import ddf.minim.*;
 import processing.net.*;
 import toxi.geom.*;
 
@@ -22,7 +22,7 @@ Playground playground;
 
 PeasyCam camera;
 
-Sound sound;
+Minim minim;
 Assets assets;
 
 void setup() {
@@ -96,6 +96,7 @@ void render() {
   for (int i = fireworks.size()-1; i >= 0; i--) {
     Firework firework = fireworks.get(i);
     if (firework.isDead()) {
+      firework.destroy();
       fireworks.remove(i);
     }
     firework.render();

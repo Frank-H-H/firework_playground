@@ -5,6 +5,7 @@ class Bomb implements Firework {
   float launcherParticleColor;
   ParticleGenerator launcherParticleGenerator;
   Explosion explosion;
+  AudioPlayer startSound;
 
   Bomb(Vec3D aLocation) {
     this.location = new Vec3D(aLocation.x, aLocation.y, 0.1);
@@ -19,8 +20,8 @@ class Bomb implements Firework {
       .airResistanceJitter(0.02)
       .averageSmokeDuration(200);
     distanceFromViewer = playground.distanceFactorFromViewer(this.location);
-    SoundFile startSound = assets.randomBombStartSound();
-    startSound.amp(map(distanceFromViewer,0,1,0.6,0.02));
+    startSound = assets.randomBombStartSound();
+    startSound.setGain(map(distanceFromViewer, 0, 1, 0, -30));
     startSound.play();
     launcherParticleGenerator.emitParticles(200);
   }
@@ -63,6 +64,13 @@ class Bomb implements Firework {
 
   boolean isDead() {
     return this.explosion != null && explosion.isDead() && this.launcherParticleGenerator.isDead();
+  }
+  
+  void destroy() {
+    if(explosion != null) {
+      explosion.destroy();
+    }
+    startSound.close();
   }
   
   long particleCount() {

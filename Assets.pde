@@ -31,8 +31,8 @@ class Assets {
       "salamisound-8469902-loud-firecrackers-shot-or.wav"
     };
     volcanoSounds = new String[] {
-      "FRWKRec_Sparkling candle 1 (ID 1278)_BSB.wav",
-      "FRWKRec_Sparkling candle 2 (ID 1279)_BSB.wav"
+      "FRWKRec_Sparkling candle 1 (ID 1278)_BSB.mp3",
+      "FRWKRec_Sparkling candle 2 (ID 1279)_BSB.mp3"
     };
     bombStartSounds = new String[]{
       "FireWorks-Single-A-www.fesliyanstudios.com.wav",
@@ -43,23 +43,23 @@ class Assets {
     };
   }
 
-  SoundFile randomRocketStartSound() {
-    return new SoundFile(parent, rocketStartSounds[int(random(rocketStartSounds.length))]);
+  AudioPlayer randomRocketStartSound() {
+    return minim.loadFile(rocketStartSounds[int(random(rocketStartSounds.length))]);
   }
   
-  SoundFile randomBombStartSound() {
-    return new SoundFile(parent, bombStartSounds[int(random(bombStartSounds.length))]);
+  AudioPlayer randomBombStartSound() {
+    return minim.loadFile(bombStartSounds[int(random(bombStartSounds.length))]);
   }
 
-  SoundFile randomVolcanoSound() {
-    return new SoundFile(parent, volcanoSounds[int(random(volcanoSounds.length))]);
+  AudioPlayer randomVolcanoSound() {
+    return minim.loadFile(volcanoSounds[int(random(volcanoSounds.length))]);
   }
 
-  SoundFile randomLargeExplosionSound() {
-    return new SoundFile(parent, largeExplosionSounds[int(random(largeExplosionSounds.length))]);
+  AudioPlayer randomLargeExplosionSound() {
+    return minim.loadFile(largeExplosionSounds[int(random(largeExplosionSounds.length))]);
   }
 
-  SoundFile randomSmallExplosionSound() {
-    return new SoundFile(parent, smallExplosionSounds[int(random(smallExplosionSounds.length))]);
+  AudioPlayer  randomSmallExplosionSound() {
+    return minim.loadFile(smallExplosionSounds[int(random(smallExplosionSounds.length))]);
   }
 }

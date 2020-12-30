@@ -5,7 +5,7 @@ class Volcano implements Firework {
   float totalLifespan;
   float distanceFromViewer;
   ParticleGenerator particleGenerator;
-  SoundFile sound;
+  AudioPlayer permanentSound;
   
   Volcano(Vec3D aLocation) {
     this.location = new Vec3D(aLocation.x, aLocation.y, 0.1);
@@ -22,9 +22,10 @@ class Volcano implements Firework {
       .airResistanceJitter(0.002)
       .averageSmokeDuration(200);
     distanceFromViewer = playground.distanceFactorFromViewer(this.location);
-    sound = assets.randomVolcanoSound();
-    sound.amp(map(distanceFromViewer,0,1,0.6,0.02));
-    sound.play();
+    permanentSound = assets.randomVolcanoSound();
+    permanentSound.skip(500);
+    permanentSound.setGain(map(distanceFromViewer, 0, 1, 0, -30));
+    permanentSound.play();
   }
   
   void physics() {
@@ -32,11 +33,11 @@ class Volcano implements Firework {
       particleGenerator.emitParticles(3);
     }
     particleGenerator.physics();
-    if(this.remainingLifespan <= 10 && this.remainingLifespan >= 0) {
-      sound.amp(map(distanceFromViewer,0,1,0.6,0.02) * remainingLifespan / 10);
+    if(this.remainingLifespan <= 20 && this.remainingLifespan >= 0) {
+      permanentSound.setGain(map(distanceFromViewer, 0, 1, 0, -30) + map(remainingLifespan, 20, 0, 0, -20));
     }
     if(remainingLifespan < 0) {
-      sound.stop();
+      permanentSound.pause();
     }
     remainingLifespan--;
   }
@@ -58,6 +59,10 @@ class Volcano implements Firework {
     return this.remainingLifespan <= 0 && this.particleGenerator.isDead();
   }
   
+  void destroy() {
+    permanentSound.close();
+  }
+
   long particleCount() {
     return this.particleGenerator.particleCount();
   }

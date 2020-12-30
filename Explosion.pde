@@ -8,6 +8,7 @@ class Explosion implements Firework {
   float cometLifeSpan;
   float averageCometMass;
   ArrayList<Comet> comets;
+  AudioPlayer explosionSound;
 
   Explosion(Vec3D aLocation, Vec3D aVelocity, float minExplosionSize, float maxExplosionSize, float averageCometSize) {
     this.location = aLocation;
@@ -28,9 +29,9 @@ class Explosion implements Firework {
         .mass(averageCometMass));
     }
     float distanceFactor = playground.distanceFactorFromViewer(this.location);
-    SoundFile startSound = explosionSize >= 30 ? assets.randomLargeExplosionSound() : assets.randomSmallExplosionSound();
-    startSound.amp(map(distanceFactor,0,1,1,0.05));
-    startSound.play();
+    explosionSound = explosionSize >= 30 ? assets.randomLargeExplosionSound() : assets.randomSmallExplosionSound();
+    explosionSound.setGain(map(distanceFactor, 0, 1, 0, -30));
+    explosionSound.play();
   }
 
   void physics() {
@@ -65,6 +66,10 @@ class Explosion implements Firework {
     return this.comets.isEmpty();
   }
   
+  void destroy() {
+    explosionSound.close();
+  }
+
   long particleCount() {
     long count = 0;
     for (int i = this.comets.size()-1; i >= 0; i--) {

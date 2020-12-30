@@ -9,6 +9,9 @@ interface Firework {
   // Renders the firework in its current state
   void render();
   
+  // Removes this firework
+  void destroy();
+  
   // counts all particles of this firework
   long particleCount();
 }
