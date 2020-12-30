@@ -6,9 +6,11 @@ class Particle {
   float airResistanceFactor;
   float totalSmokeDuration;
   float remainingSmokeDuration;
+  float distanceFromViewer;
   
   private Particle(Vec3D aLocation) {
     location = aLocation;
+    distanceFromViewer = map(location.y, playground.frontLeft.y, playground.backLeft.y, 0, 1);
   }
   
   Particle moving(Vec3D aVelocity) {
@@ -84,8 +86,7 @@ class Particle {
       alphaFactor = remainingLifespan / 10;
     }
     
-    float distance = map(location.y, playground.frontLeft.y, playground.backLeft.y, 0, 1);
-    float distanceFactor = map(distance, 0, 1, 2, 0.1);
+    float distanceFactor = map(distanceFromViewer, 0, 1, 2, 0.1);
     
     // glow
     stroke(hue, 200, 255, 50 * alphaFactor);
@@ -111,7 +112,7 @@ class Particle {
     float distanceFactor = map(distance, 0, 1, 2, 0.1);
     
     // outer smoke
-    stroke(hue, 0, 10, 100 * alphaFactor);
+    stroke(hue, 0, 100, 100 * alphaFactor);
     strokeWeight(distanceFactor * 4);
     point(location.x, location.y, location.z);
     // smoke
