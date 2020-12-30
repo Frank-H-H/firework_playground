@@ -5,12 +5,28 @@ class Comet {
   float remainingLifespan;
   float airResistanceFactor;
   
-  Comet(Vec3D aLocation, Vec3D aVelocity, float aHue, float aRemainingLifespan, float anAirResistanceFactor) {
+  private Comet(Vec3D aLocation) {
     location = aLocation;
-    velocity = aVelocity;
+  }
+  
+  Comet moving(Vec3D aVelocity) {
+    velocity = aVelocity.copy();
+    return this;
+  }
+  
+  Comet hue(float aHue) {
     hue = aHue;
-    remainingLifespan = aRemainingLifespan;
+    return this;
+  }
+  
+  Comet lifespan(float aLifespan) {
+    remainingLifespan = aLifespan;
+    return this;
+  }
+
+  Comet airResistance(float anAirResistanceFactor) {
     airResistanceFactor = anAirResistanceFactor;
+    return this;
   }
   
   void doOneCycle() {
@@ -28,7 +44,8 @@ class Comet {
       return;
     }
     velocity.scaleSelf(1 - airResistanceFactor);
-    velocity.addSelf(gravity);
+    // gravity is not that high for comets
+    velocity.addSelf(gravity.scale(0.5));
     location.addSelf(velocity);
     // comets should not enter earth
     location.z = max(location.z, 0);

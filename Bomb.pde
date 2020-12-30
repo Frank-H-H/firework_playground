@@ -62,7 +62,7 @@ class Bomb implements Firework {
   }
   
   void explode() {
-    this.explosion = new Explosion(location, velocity, 30, 60);
+    this.explosion = new Explosion(location, velocity, 30, 0, random(0.01, 0.1));
   }
 
   boolean isDead() {

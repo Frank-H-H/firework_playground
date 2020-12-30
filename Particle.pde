@@ -57,7 +57,8 @@ class Particle {
     }
     velocity.scaleSelf(1 - airResistanceFactor);
     if(remainingLifespan > 0) {
-      velocity.addSelf(gravity);
+      // gravity is not that high for particles
+      velocity.addSelf(gravity.scale(0.1));
     } else {
       velocity.addSelf(gravity.scale(0.03));
     }
