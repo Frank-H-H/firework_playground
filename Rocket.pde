@@ -14,7 +14,7 @@ class Rocket implements Firework {
     this.velocity = new Vec3D(0, 0, 0);
     this.thrustHue = random(255);
     this.thrust = random(0.23, 0.27);
-    this.remainingPropellant = random(100, 120);
+    this.remainingPropellant = 150;
     this.remainingTimeUntilExplosion = random(100, 120);
     thrustParticleGenerator = new ParticleGenerator(location, new Vec3D(0, 0, thrust * -5))
       .directionJitter(random(0.1, 0.3))
@@ -40,7 +40,7 @@ class Rocket implements Firework {
       this.explosion.physics();
     } else {
       if(this.remainingPropellant > 0) {
-        this.velocity.addSelf(new Vec3D(0, 0, thrust));
+        this.velocity.addSelf(new Vec3D(0, 0, thrust).jitter(0.3));
         thrustParticleGenerator.emitParticles(3);
       }
       this.velocity.addSelf(gravity);

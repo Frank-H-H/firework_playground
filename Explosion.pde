@@ -4,29 +4,43 @@ class Explosion implements Firework {
   float timeAfterExplosion;
   float numberOfComets;
   float cometColor;
-  float particleColor;
+  float glitterColor;
   float cometLifeSpan;
   float averageCometMass;
-  ArrayList<Comet> comets;
+  boolean hasGlitter;
+  ArrayList<Particle> comets;
   AudioPlayer explosionSound;
 
   Explosion(Vec3D aLocation, Vec3D aVelocity, float minExplosionSize, float maxExplosionSize, float averageCometSize) {
     this.location = aLocation;
     this.velocity = aVelocity;
+    hasGlitter = random(1) <= 0.3;
     this.timeAfterExplosion = -1;
-    this.cometColor = 40;
-    this.particleColor = random(255);
-    this.cometLifeSpan = random(70, 200);
+    this.glitterColor = 40;
+    this.cometColor = random(255);
+    this.cometLifeSpan = hasGlitter ? random(70, 300) : random(70, 150);
     averageCometMass = random(0.4, 1.2);
     float explosionSize = random(minExplosionSize, maxExplosionSize);
     numberOfComets = random(100, 110);
-    this.comets = new ArrayList<Comet>();
+    this.comets = new ArrayList<Particle>();
     for (int i = 0; i <= numberOfComets; i++) {
-      comets.add(new Comet(this.location.copy(), Vec3D.randomVector().scale(explosionSize).add(velocity))
-        .hue(this.particleColor)
-        .lifespan(random(cometLifeSpan * 0.5, cometLifeSpan * 1.5))
-        .airResistance(random(averageCometSize * 0.9, averageCometSize * 1.1))
-        .mass(averageCometMass));
+      if(hasGlitter) {
+        comets.add(new Comet(this.location.copy(), Vec3D.randomVector().scale(explosionSize).add(velocity))
+          .hue(this.cometColor)
+          .lifespan(random(cometLifeSpan * 0.5, cometLifeSpan * 1.5))
+          .airResistance(random(averageCometSize * 0.9, averageCometSize * 1.1))
+          .mass(averageCometMass)
+          .smokeDuration(100)
+          .size(2));
+      } else {
+        comets.add(new Particle(this.location.copy()).moving(Vec3D.randomVector().scale(explosionSize).add(velocity))
+          .hue(this.cometColor)
+          .lifespan(random(cometLifeSpan * 0.5, cometLifeSpan * 1.5))
+          .airResistance(random(averageCometSize * 0.9, averageCometSize * 1.1))
+          .mass(averageCometMass)
+          .smokeDuration(100)
+          .size(1.5));
+      }
     }
     float distanceFactor = playground.distanceFactorFromViewer(this.location);
     explosionSound = explosionSize >= 30 ? assets.randomLargeExplosionSound() : assets.randomSmallExplosionSound();
@@ -37,7 +51,7 @@ class Explosion implements Firework {
   void physics() {
     this.timeAfterExplosion++;
     for (int i = this.comets.size()-1; i >= 0; i--) {
-      Comet comet = this.comets.get(i);
+      Particle comet = this.comets.get(i);
       if (comet.isDead()) {
         this.comets.remove(i);
       }

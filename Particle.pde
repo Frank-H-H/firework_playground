@@ -6,6 +6,8 @@ class Particle {
   float airResistanceFactor;
   float totalSmokeDuration;
   float remainingSmokeDuration;
+  float mass = 0.3;
+  float size = 1;
   float distanceFromViewer;
   boolean isSmoke;
   
@@ -40,6 +42,16 @@ class Particle {
     return this;
   }
   
+  Particle mass(float aMass) {
+    mass = aMass;
+    return this;
+  }
+    
+  Particle size(float aSize) {
+    size = aSize;
+    return this;
+  }
+  
   void physics() {
     remainingLifespan--;
     isSmoke = remainingLifespan <= 0;
@@ -60,10 +72,10 @@ class Particle {
     velocity.scaleSelf(1 - airResistanceFactor);
     if(isSmoke) {
       // gravity is not that high for smoke
-      velocity.addSelf(gravity.scale(0.03));
+      velocity.addSelf(gravity.scale(mass * 0.5));
     } else {
       // gravity is not that high for particles
-      velocity.addSelf(gravity.scale(0.1));
+      velocity.addSelf(gravity.scale(mass));
     }
     // apply velocity to location
     if(isSmoke) {
@@ -93,11 +105,11 @@ class Particle {
     }
 
     // glow
-    renderParticle(5, hue, 200, 255, 50 * alphaFactor);
+    renderParticle(5 * size, hue, 200, 255, 50 * alphaFactor);
     // glow
-    renderParticle(3, hue, 70, 255, 100 * alphaFactor);
+    renderParticle(3 * size, hue, 70, 255, 100 * alphaFactor);
     // actual particle
-    renderParticle(1, hue, 10, 255, 255 * alphaFactor);
+    renderParticle(1 * size, hue, 10, 255, 255 * alphaFactor);
   }
 
   void renderSmoke() {
@@ -107,9 +119,9 @@ class Particle {
     }
     
     // outer smoke
-    renderParticle(4, hue, 0, 200, 50 * alphaFactor);
+    renderParticle(4 * size, hue, 0, 200, 50 * alphaFactor);
     // smoke
-    renderParticle(2, hue, 0, 200, 100 * alphaFactor);
+    renderParticle(2 * size, hue, 0, 200, 100 * alphaFactor);
   }
   
   void renderParticle(float size, float hue, float saturation, float brightness, float alpha) {
@@ -149,4 +161,7 @@ class Particle {
     return remainingLifespan <= 0 && remainingSmokeDuration <= 0;
   }
   
+  long particleCount() {
+    return 0;
+  }
 }
