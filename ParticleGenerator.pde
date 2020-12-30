@@ -34,12 +34,11 @@ class ParticleGenerator {
   }
   
   void emitParticle() {
-    this.particles.add(new Particle(
-      this.location.copy(),
-      direction.copy().jitter(directionJitter),
-      hue,
-      random(duration - durationJitter, duration + durationJitter),
-      random(airResistance - airResistanceJitter, airResistance + airResistanceJitter)));
+    this.particles.add(new Particle(this.location.copy())
+      .moving(direction.copy().jitter(directionJitter))
+      .hue(hue)
+      .lifespan(random(duration - durationJitter, duration + durationJitter))
+      .airResistance(random(airResistance - airResistanceJitter, airResistance + airResistanceJitter)));
   }
 
   void emitParticles(int count) {

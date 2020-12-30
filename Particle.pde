@@ -5,12 +5,28 @@ class Particle {
   float remainingLifespan;
   float airResistanceFactor;
   
-  Particle(Vec3D aLocation, Vec3D aVelocity, float aHue, float aRemainingLifespan, float anAirResistanceFactor) {
+  private Particle(Vec3D aLocation) {
     location = aLocation;
+  }
+  
+  Particle moving(Vec3D aVelocity) {
     velocity = aVelocity.copy();
+    return this;
+  }
+  
+  Particle hue(float aHue) {
     hue = aHue;
-    remainingLifespan = aRemainingLifespan;
+    return this;
+  }
+  
+  Particle lifespan(float aLifespan) {
+    remainingLifespan = aLifespan;
+    return this;
+  }
+
+  Particle airResistance(float anAirResistanceFactor) {
     airResistanceFactor = anAirResistanceFactor;
+    return this;
   }
   
   void doOneCycle() {
