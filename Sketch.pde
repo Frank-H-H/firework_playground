@@ -43,8 +43,6 @@ void setup() {
   
   httpServer = new Server(this, 8080);
   
-  thread("checkForClients");
-  
   this.fireworks = new ArrayList<Firework>();
 }
 
@@ -104,17 +102,7 @@ void render() {
   }
 }
 
-void checkForClients() {
-  while(true) {
-//    Client newClient = httpServer.available();
-//    if (newClient !=null) {
-//      new Thread(new ClientHandler(newClient)).start();
-//    } 
-  }
-}
-
 String HTTP_HEADER = "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n";
-
 
 class ClientHandler implements Runnable {
   
