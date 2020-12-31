@@ -27,13 +27,16 @@ Assets assets;
 long startupTime;
 boolean autoMode = true;
 
+public void settings() {
+  fullScreen(P3D);
+}
+
 void setup() {
   dataPath("data");
   startupTime = System.nanoTime();
   minim = new Minim(this);
   assets = new Assets(this);
 
-  fullScreen(P3D);
   //size(800, 600, P3D);
   camera = new PeasyCam(this, 0, 0, 1100, 3000);
   camera.rotateX(-1.9);
