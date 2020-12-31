@@ -17,9 +17,20 @@ class Playground {
   }
   
   void display() {
-    stroke(40);
+    
+    // display earth
+    fill(5);
+    beginShape();
+    vertex(-100000, -100000, -0.1);
+    vertex(-100000, 100000, -0.1);
+    vertex(100000, 100000, -0.1);
+    vertex(100000, -100000, -0.1);
+    endShape(CLOSE);
+    
+    // display playground
+    stroke(20);
     strokeWeight(1);
-    fill(10);
+    fill(5);
     beginShape();
     vertex(backLeft.x, backLeft.y, backLeft.z);
     vertex(frontLeft.x, frontLeft.y, frontLeft.z);
