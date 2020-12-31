@@ -40,7 +40,7 @@ class Rocket implements Firework {
       this.explosion.physics();
     } else {
       if(this.remainingPropellant > 0) {
-        this.velocity.addSelf(new Vec3D(0, 0, thrust).jitter(0.3));
+        this.velocity.addSelf(new Vec3D(0, 0, thrust).jitter(0.8));
         thrustParticleGenerator.emitParticles(3);
       }
       this.velocity.addSelf(gravity);

@@ -1,10 +1,10 @@
 class Star {
-  PVector location;
+  Vec3D location;
   float size;
   float hue;
   float saturation;
   
-  Star(PVector aLocation, float aSize, float aHue, float aSaturation) {
+  Star(Vec3D aLocation, float aSize, float aHue, float aSaturation) {
     location = aLocation;
     size = aSize;
     hue = aHue;

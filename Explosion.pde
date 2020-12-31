@@ -4,7 +4,6 @@ class Explosion implements Firework {
   float timeAfterExplosion;
   float numberOfComets;
   float cometColor;
-  float glitterColor;
   float cometLifeSpan;
   float averageCometMass;
   boolean hasGlitter;
@@ -16,9 +15,8 @@ class Explosion implements Firework {
     this.velocity = aVelocity;
     hasGlitter = random(1) <= 0.3;
     this.timeAfterExplosion = -1;
-    this.glitterColor = 40;
     this.cometColor = random(255);
-    this.cometLifeSpan = hasGlitter ? random(70, 300) : random(70, 150);
+    this.cometLifeSpan = hasGlitter ? random(70, 500) : random(70, 150);
     averageCometMass = random(0.4, 1.2);
     float explosionSize = random(minExplosionSize, maxExplosionSize);
     numberOfComets = random(100, 110);
@@ -33,15 +31,20 @@ class Explosion implements Firework {
           .smokeDuration(200)
           .size(1.5));
     }
+    boolean hasDifferentGlitter = random(1) <= 0.1;
+    float glitterHue = random(0,255);
     for (int i = 0; i <= numberOfComets; i++) {
       if(hasGlitter) {
-        comets.add(new Comet(this.location.copy(), Vec3D.randomVector().scale(explosionSize).add(velocity))
+        if(hasDifferentGlitter) {
+          glitterHue = random(0,255);
+        }
+        comets.add(new Comet(this.location.copy(), Vec3D.randomVector().scale(explosionSize).add(velocity), glitterHue)
           .hue(this.cometColor)
           .lifespan(random(cometLifeSpan * 0.5, cometLifeSpan * 1.5))
           .airResistance(random(averageCometSize * 0.9, averageCometSize * 1.1))
           .mass(averageCometMass)
           .smokeDuration(100)
-          .size(2));
+          .size(3));
       } else {
         comets.add(new Particle(this.location.copy()).moving(Vec3D.randomVector().scale(explosionSize).add(velocity))
           .hue(this.cometColor)
@@ -49,7 +52,7 @@ class Explosion implements Firework {
           .airResistance(random(averageCometSize * 0.9, averageCometSize * 1.1))
           .mass(averageCometMass)
           .smokeDuration(100)
-          .size(1.5));
+          .size(2));
       }
     }
     float distanceFactor = playground.distanceFactorFromViewer(this.location);

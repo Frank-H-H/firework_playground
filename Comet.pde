@@ -1,12 +1,12 @@
 class Comet extends Particle implements Firework {
   ParticleGenerator glitterGenerator;
 
-  private Comet(Vec3D aLocation, Vec3D aVelocity) {
+  private Comet(Vec3D aLocation, Vec3D aVelocity, float glitterHue) {
     super(aLocation);
     moving(aVelocity);
     glitterGenerator = new ParticleGenerator(location.copy(), new Vec3D(0, 0, 0))
       .directionJitter(0.1)
-      .hue(hue)
+      .hue(glitterHue)
       .duration(random(50, 150))
       .durationJitter(10)
       .airResistance(0.1)

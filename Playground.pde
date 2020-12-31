@@ -30,9 +30,15 @@ class Playground {
     // render stars
     for (int i = this.stars.size()-1; i >= 0; i--) {
       Star star = this.stars.get(i);
-      stroke(star.hue, star.saturation, 255, 255);
-      strokeWeight(star.size);
-      point(star.location.x, star.location.y, star.location.z);
+      noStroke();
+      normal(0, 0, -1);
+      fill(star.hue, star.saturation, 255, 255);
+      beginShape(QUADS);
+      vertex(star.location.x - star.size, star.location.y, star.location.z + star.size);
+      vertex(star.location.x + star.size, star.location.y, star.location.z + star.size);
+      vertex(star.location.x + star.size, star.location.y, star.location.z - star.size);
+      vertex(star.location.x - star.size, star.location.y, star.location.z - star.size);
+      endShape();
     }
   }
   
@@ -60,13 +66,13 @@ class Playground {
     do {
       hue = random(0, 255);
     } while (!potentialStarColor(hue));
-    
+    Vec3D vec;
+    do {
+      vec = Vec3D.randomVector();
+    } while (vec.z <= 0);
     stars.add(new Star(
-      new PVector(
-        random(min(backLeft.x, backRight.x)*1.1, max(backLeft.x, backRight.x))*1.1,
-        -2000,
-        random(100, 4000)),
-      random(0.5, 1) * random(1, 4),
+      vec.scale(5000),
+      random(3, 10),
       hue,
       random(0, 60)));
   }
