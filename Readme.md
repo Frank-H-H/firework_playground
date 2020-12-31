@@ -11,6 +11,12 @@ Inline-style:
  - Minim
  - Toxic-Libs
 
+Add them via this menu:
+![Add library](https://github.com/Frank-H-H/firework_playground/raw/master/add_library.png "Add library")
+![Add library dialog](https://github.com/Frank-H-H/firework_playground/raw/master/add_library_dialog.png "Add library dialog")
+
+
+
 # Usage
 There are three different kind of fireworks:
  - Volcanos
