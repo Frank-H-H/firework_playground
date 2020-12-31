@@ -6,6 +6,11 @@ This is a [processing](https://processing.org/) project. It shows fireworks.
 Inline-style: 
 ![Firework](https://github.com/Frank-H-H/firework_playground/raw/master/screenshot.png "Firework")
 
+# Required libraries
+ - PeasyCam
+ - Minim
+ - Toxic-Libs
+
 # Usage
 There are three different kind of fireworks:
  - Volcanos

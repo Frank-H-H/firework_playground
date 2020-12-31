@@ -28,6 +28,7 @@ long startupTime;
 boolean autoMode = true;
 
 void setup() {
+  dataPath("data");
   startupTime = System.nanoTime();
   minim = new Minim(this);
   assets = new Assets(this);
