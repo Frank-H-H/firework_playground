@@ -25,6 +25,7 @@ PeasyCam camera;
 Minim minim;
 Assets assets;
 long startupTime;
+boolean autoMode = true;
 
 void setup() {
   startupTime = System.nanoTime();
@@ -47,7 +48,7 @@ void setup() {
 }
 
 void draw() {
-  if(frameCount - frameRate * 60 > lastFrameWithActivity) {
+  if(autoMode && frameCount - frameRate * 60 > lastFrameWithActivity) {
     if(random(0, 1000) <= 10 - this.fireworks.size()) {
       addBomb();
     }
@@ -118,19 +119,30 @@ class ClientHandler implements Runnable {
       String whatClientSaid = client.readString();
       if (whatClientSaid != null) {
         println(client.ip() + ": " + whatClientSaid);
-        lastFrameWithActivity = frameCount;
         if(whatClientSaid.contains("Volcano")) {
           addVolcano();
+          lastFrameWithActivity = frameCount;
         }
         if(whatClientSaid.contains("Rocket")) {
           addRocket();
+          lastFrameWithActivity = frameCount;
         }
         if(whatClientSaid.contains("Bomb")) {
           addBomb();
+          lastFrameWithActivity = frameCount;
+        }
+        if(whatClientSaid.contains("Wind")) {
+          toggleWind();
+        }
+        if(whatClientSaid.contains("Gravity")) {
+          toggleGravity();
+        }
+        if(whatClientSaid.contains("AutoMode")) {
+          toggleAutoMode();
         }
         client.write(HTTP_HEADER);
         client.write("<html><head><title>Processing talkin'</title></head><body><h3>Your base are belong to us!");
-    client.write("</h3></body></html>");
+        client.write("</h3></body></html>");
         client.stop();
         finished = true;
       }
@@ -157,15 +169,37 @@ void addBomb() {
   this.fireworks.add(new Bomb(playground.randomPointOnPlayground()));
 }
 
+void toggleWind() {
+  if(wind.magnitude() == 0) {
+    wind = new Vec3D(random(-0.05, 0.05), random(-0.05, 0.05), 0);
+  } else {
+    wind = new Vec3D(0, 0, 0);
+  }
+}
+
+void toggleAutoMode() {
+  autoMode = !autoMode;
+}
+
+void toggleGravity() {
+  if(gravity.magnitude() > 0.1) {
+    gravity = new Vec3D(0, 0, -0.1);
+  } else {
+    gravity = new Vec3D(0, 0, -0.2);
+  }
+}
+
 void keyPressed() {
-  lastFrameWithActivity = frameCount;
   if (key == 'v') {
+    lastFrameWithActivity = frameCount;
     addVolcano();
   }
   if (key == 'r') {
+    lastFrameWithActivity = frameCount;
     addRocket();
   }
   if (key == 'b') {
+    lastFrameWithActivity = frameCount;
     addBomb();
   }
 }
