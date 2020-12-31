@@ -51,7 +51,7 @@ void draw() {
     if(random(0, 1000) <= 10 - this.fireworks.size()) {
       addBomb();
     }
-    if(random(0, 1000) <= 10 - this.fireworks.size()) {
+    if(random(0, 5000) <= 10 - this.fireworks.size()) {
       addVolcano();
     }
     if(random(0, 1000) <= 10 - this.fireworks.size()) {
