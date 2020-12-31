@@ -5,13 +5,13 @@ class Playground {
   PVector backRight;
   ArrayList<Star> stars;
   Playground() {
-    frontLeft = new PVector(-120, 2000, 0);
-    frontRight = new PVector(120, 2000, 0);
-    backLeft = new PVector(-2900, -2000, 0);
-    backRight = new PVector(2900, -2000, 0);
+    frontLeft = new PVector(-540, 2000, 0);
+    frontRight = new PVector(540, 2000, 0);
+    backLeft = new PVector(-3250, -2000, 0);
+    backRight = new PVector(3250, -2000, 0);
     
     stars = new ArrayList<Star>();
-    for(int i = 0; i<= 150; i++) {
+    for(int i = 0; i<= 300; i++) {
       addStar();
     }
   }

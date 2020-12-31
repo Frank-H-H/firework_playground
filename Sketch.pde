@@ -33,10 +33,10 @@ void setup() {
 
   fullScreen(P3D);
   //size(800, 600, P3D);
-  camera = new PeasyCam(this, 0, 1500, 200, 700);
-  camera.rotateX(-1.79);
+  camera = new PeasyCam(this, 0, 0, 1100, 3000);
+  camera.rotateX(-1.9);
   camera.setPitchRotationMode();
-
+  
   colorMode(HSB);
   
   playground = new Playground();
