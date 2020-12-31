@@ -38,7 +38,10 @@ class Assets {
     };
     volcanoSounds = new String[] {
       "FRWKRec_Sparkling candle 1 (ID 1278)_BSB.mp3",
-      "FRWKRec_Sparkling candle 2 (ID 1279)_BSB.mp3"
+      "FRWKRec_Sparkling candle 2 (ID 1279)_BSB.mp3",
+      "volcano01.mp3",
+      "volcano02.mp3",
+      "volcano03.mp3"
     };
     bombStartSounds = new String[]{
       "FireWorks-Single-A-www.fesliyanstudios.com.wav",
