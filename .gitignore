@@ -1,7 +1,9 @@
 .DS_Store
 applet
-application.linux32
-application.linux64
-application.windows32
-application.windows64
-application.macosx
+src/*/application.linux-arm64
+src/*/application.linux-armv6hf
+src/*/application.linux32
+src/*/application.linux64
+src/*/application.windows32
+src/*/application.windows64
+src/*/application.macosx
