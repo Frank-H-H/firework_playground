@@ -17,18 +17,24 @@ class Assets {
       "abschuss 2.wav",
       "abschuss 3.wav",
       "abschuss 4.wav",
-      "Bottle Rocket-SoundBible.com-332895117.wav"
+      "Bottle Rocket-SoundBible.com-332895117.wav",
+      "rocket01.mp3",
+      "misc113.mp3",
+      "misc114.mp3",
+      "misc115.mp3"
     };
     largeExplosionSounds = new String[] {
       "knall 1.wav",
       "knall 3.wav",
       "salamisound-4330966-loud-firecrackers-shot-or.wav",
-      "salamisound-8469902-loud-firecrackers-shot-or.wav"
+      "salamisound-8469902-loud-firecrackers-shot-or.wav",
+      "explosion03.mp3"
     };
     smallExplosionSounds = new String[] {
       "knall 2.wav",
       "salamisound-4330966-loud-firecrackers-shot-or.wav",
-      "salamisound-8469902-loud-firecrackers-shot-or.wav"
+      "salamisound-8469902-loud-firecrackers-shot-or.wav",
+      "explosion02.mp3"
     };
     volcanoSounds = new String[] {
       "FRWKRec_Sparkling candle 1 (ID 1278)_BSB.mp3",
@@ -39,7 +45,8 @@ class Assets {
       "FireWorks-Single-B-www.fesliyanstudios.com.wav",
       "FireWorks-Single-C-www.fesliyanstudios.com.wav",
       "FireWorks-Single-D-www.fesliyanstudios.com.wav",
-      "FireWorks-Single-E-www.fesliyanstudios.com.wav"
+      "FireWorks-Single-E-www.fesliyanstudios.com.wav",
+      "explosion01.mp3"
     };
   }
 
